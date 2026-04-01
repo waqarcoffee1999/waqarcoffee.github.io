@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>وَقَار — بن قهوة</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Cairo:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a0a;
+    --white: #f8f5f0;
+    --cream: #ede8e0;
+    --brown: #5c3d2e;
+    --brown-light: #a0714f;
+    --brown-pale: #d4bfa8;
+    --text: #1a1a1a;
+    --text-muted: #6b5a4e;
+    --border: #c8b89a;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Cairo', sans-serif;
+    background: var(--white);
+    color: var(--text);
+    direction: rtl;
+  }
+
+ nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 3rem;
+    background: rgba(248,245,240,0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--black);
+    letter-spacing: -0.02em;
+  }
+
+  .nav-logo span { color: var(--brown); }
+
+  .nav-cta {
+    background: var(--black);
+    color: var(--white);
+    border: none;
+    padding: 0.6rem 1.4rem;
+    border-radius: 2px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 400;
+    cursor: pointer;
+    transition: background 0.2s;
+    text-decoration: none;
+  }
+  .nav-cta:hover { background: var(--brown); }
+
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .nav-link {
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-link:hover { color: var(--brown); }
+
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 4px;
+  }
+
+  .nav-hamburger span {
+    display: block;
+    width: 24px;
+    height: 1.5px;
+    background: var(--black);
+  }
+
+  .nav-mobile-menu {
+    display: none;
+    position: fixed;
+    top: 57px; left: 0; right: 0;
+    background: rgba(248,245,240,0.98);
+    border-bottom: 1px solid var(--border);
+    padding: 1.5rem 2rem;
+    flex-direction: column;
+    gap: 1.2rem;
+    z-index: 99;
+  }
+
+  .nav-mobile-menu.open { display: flex; }
+
+  .nav-mobile-menu a {
+    font-family: 'Cairo', sans-serif;
+    font-size: 1rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-mobile-menu a.nav-cta {
+    border-bottom: none;
+    text-align: center;
+    padding: 0.8rem 1rem;
+    margin-top: 0.5rem;
+    color: var(--white);
+  }
+
+  .product-card a {
+  margin-top: auto;
+}
+
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8rem 3rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 80% 50%, rgba(92,61,46,0.07) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 10% 80%, rgba(92,61,46,0.05) 0%, transparent 60%);
+  }
+
+  .hero-content {
+    max-width: 700px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--brown-light);
+    border: 1px solid var(--brown-pale);
+    padding: 0.35rem 0.9rem;
+    border-radius: 2px;
+    margin-bottom: 2rem;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 8vw, 6rem);
+    font-weight: 400;
+    line-height: 1.05;
+    color: var(--black);
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.03em;
+  }
+
+  .hero h1 em {
+    color: var(--brown);
+    font-style: italic;
+  }
+
+  .hero-desc {
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: var(--text-muted);
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+    max-width: 480px;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--black);
+    color: var(--white);
+    border: none;
+    padding: 0.6rem 1rem;
+    border-radius: 2px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 400;
+    cursor: pointer;
+    transition: background 0.2s;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--brown); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    padding: 0.9rem 2.2rem;
+    border-radius: 2px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 1rem;
+    font-weight: 300;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-ghost:hover { border-color: var(--brown); color: var(--brown); }
+
+  .divider-line {
+    height: 1px;
+    background: linear-gradient(to left, transparent, var(--border), transparent);
+    margin: 0 3rem;
+  }
+
+  .product-section {
+    padding: 6rem 3rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .product-hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    margin-bottom: 5rem;
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .product-card {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  min-height: 260px; /* أهم سطر */
+}
+
+  .product-card-img {
+  width: 100%;
+  height: 140px; /* ثبّت ارتفاع */
+  overflow: hidden;
+  border-radius: 8px;
+  background: var(--cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+
+
+    object-fit: cover;
+    border-radius: 8px;
+    background: var(--cream);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    font-size: 3rem;
+  }
+
+  .product-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+  .product-card-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  color: var(--black);
+  margin-bottom: 0.4rem;
+  min-height: 3em; /* بدل 2.5 */
+}
+
+  .product-card-price {
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+    color: var(--brown-light);
+    font-weight: 300;
+
+  }
+
+  .product-select {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    background: var(--white);
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.95rem;
+    color: var(--text);
+    font-weight: 300;
+    direction: rtl;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .product-select:focus { border-color: var(--brown); }
+
+  .product-visual {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .coffee-circle {
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .coffee-inner {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    background: var(--brown);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 8px 20px rgba(0,0,0,0.3);
+  }
+
+  .coffee-icon {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    color: var(--cream);
+    opacity: 0.9;
+  }
+
+  .coffee-badge {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: var(--black);
+    color: var(--white);
+    padding: 0.5rem 0.9rem;
+    border-radius: 2px;
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+  }
+
+  .product-info h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    font-weight: 400;
+    color: var(--black);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  .product-subtitle {
+    font-size: 0.85rem;
+    color: var(--brown-light);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    font-weight: 300;
+  }
+
+  .product-desc {
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--text-muted);
+    line-height: 1.9;
+    margin-bottom: 2rem;
+  }
+
+  .product-specs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .spec-item {
+    text-align: center;
+    padding: 1rem;
+    border: 1px solid var(--cream);
+    border-radius: 2px;
+    background: var(--cream);
+  }
+
+  .spec-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--brown);
+    display: block;
+  }
+
+  .spec-label {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .order-section {
+    background: var(--cream);
+    padding: 6rem 3rem;
+  }
+
+  .order-inner {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .order-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .order-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 400;
+    color: var(--black);
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.02em;
+  }
+
+  .order-header p {
+    color: var(--text-muted);
+    font-weight: 300;
+    font-size: 1rem;
+  }
+
+  .order-form {
+    display: grid;
+    gap: 1.2rem;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .field-group label {
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+
+  .field-group input,
+  .field-group select,
+  .field-group textarea {
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    background: var(--white);
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.95rem;
+    color: var(--text);
+    font-weight: 300;
+    direction: rtl;
+    outline: none;
+    transition: border-color 0.2s;
+    appearance: none;
+  }
+
+  .field-group input:focus,
+  .field-group select:focus,
+  .field-group textarea:focus {
+    border-color: var(--brown);
+  }
+
+  .field-group textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+
+  .qty-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .qty-btn {
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--border);
+    background: var(--white);
+    border-radius: 2px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--brown);
+    transition: all 0.15s;
+  }
+  .qty-btn:hover { background: var(--brown); color: var(--white); border-color: var(--brown); }
+
+  .qty-display {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--black);
+    min-width: 2rem;
+    text-align: center;
+  }
+
+  .order-summary {
+    background: var(--black);
+    border-radius: 2px;
+    padding: 1.2rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--white);
+  }
+
+  .summary-label {
+    font-size: 0.85rem;
+    font-weight: 300;
+    opacity: 0.7;
+  }
+
+  .summary-total {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--cream);
+  }
+
+  .submit-btn {
+    width: 100%;
+    padding: 1.1rem;
+    background: var(--brown);
+    color: var(--white);
+    border: none;
+    border-radius: 2px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    transition: background 0.2s;
+  }
+  .submit-btn:hover { background: var(--black); }
+
+  .success-msg {
+    display: none;
+    text-align: center;
+    padding: 3rem 2rem;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+  }
+
+  .success-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .success-msg h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: var(--black);
+    margin-bottom: 0.5rem;
+  }
+
+  .success-msg p {
+    color: var(--text-muted);
+    font-weight: 300;
+  }
+
+  .whatsapp-section {
+    padding: 4rem 3rem;
+    text-align: center;
+    background: var(--white);
+  }
+
+  .whatsapp-section p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-weight: 300;
+    margin-bottom: 1.2rem;
+  }
+
+  .btn-whatsapp {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: #25D366;
+    color: #fff;
+    text-decoration: none;
+    padding: 0.85rem 2rem;
+    border-radius: 2px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    transition: background 0.2s;
+  }
+  .btn-whatsapp:hover { background: #1ebe5d; }
+
+  .btn-whatsapp svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+
+  footer {
+    text-align: center;
+    padding: 2rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 300;
+    letter-spacing: 0.1em;
+  }
+
+  @media (max-width: 700px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .nav-hamburger { display: flex; }
+    .hero { padding: 6rem 1.5rem 3rem; }
+    .product-section { padding: 4rem 1.5rem; }
+    .product-hero { grid-template-columns: 1fr; gap: 2rem; }
+    .products-grid { 
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+    .coffee-circle { width: 240px; height: 240px; }
+    .coffee-inner { width: 160px; height: 160px; }
+    .order-section { padding: 4rem 1.5rem; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">وَقَار-Waqar</div>
+  <div class="nav-links">
+    <a class="nav-link" href="#product">المنتجات</a>
+    <a class="nav-link" href="#whatsapp">اتصل بنا</a>
+    <a class="nav-cta" href="#order">اطلب الآن</a>
+  </div>
+  <button class="nav-hamburger" onclick="toggleMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+</nav>
+
+<div class="nav-mobile-menu" id="mobileMenu">
+  <a href="#product" onclick="toggleMenu()">المنتجات</a>
+  <a class="nav-link" href="#whatsapp" style="color: var(--text-muted); text-decoration: none;">اتصل بنا</a>
+  <a class="nav-cta" href="#order" onclick="toggleMenu()">اطلب الآن</a>
+</div>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-tag">بن قهوة مختار</div>
+    <h1>القهوة كما<br>يجب أن <em>تكون</em></h1>
+    <p class="hero-desc">
+      وَقَار — بن قهوة عربية أصيلة، محمص بعناية ومختار من أجود المصادر. طعم لا تنساه في كل فنجان.
+    </p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="#order">اطلب الآن</a>
+      <a class="btn-ghost" href="#product">تعرف على المنتجات</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider-line"></div>
+
+<!-- ===== PRODUCT ===== -->
+<section class="product-section" id="product">
+  <div class="products-grid">
+
+    <div class="product-card">
+      <div class="product-card-img">
+  <img src="Classic.jpg" alt="Coffee">
+</div>
+      <p class="product-card-name">Classic<br> Coffee</p>
+      <p class="product-card-price">LE 140.00</p>
+      <a class="btn-primary" href="#order" style="margin-top:1rem; display:inline-block;">اطلب</a>
+    </div>
+
+    <div class="product-card">
+      <div class="product-card-img">
+  <img src="Gold.jpg" alt="Coffee">
+</div>
+      <p class="product-card-name">Gold<br> Coffee</p>
+      <p class="product-card-price">LE 500.00</p>
+      <a class="btn-primary" href="#order" style="margin-top:1rem; display:inline-block;">اطلب</a>
+    </div>
+
+    <div class="product-card">
+      <div class="product-card-img">
+  <img src="Special.jpg" alt="Coffee">
+</div>
+      <p class="product-card-name">Special<br> Coffee</p>
+      <p class="product-card-price">LE 550.00</p>
+      <a class="btn-primary" href="#order" style="margin-top:1rem; display:inline-block;">اطلب</a>
+    </div>
+</section>
+
+<div class="divider-line"></div>
+
+<section class="order-section" id="order">
+  <div class="order-inner">
+    <div class="order-header">
+      <h2>اطلب الآن</h2>
+      <p>وصول سريع — نتواصل معك لتأكيد الطلب</p>
+    </div>
+
+    <form class="order-form" id="orderForm" name="orders" method="POST" data-netlify="true">
+      <input type="hidden" name="form-name" value="orders" />
+      <input type="hidden" name="quantity" id="quantityInput" value="1" />
+
+      <div class="form-row">
+        <div class="field-group">
+          <label>الاسم</label>
+          <input type="text" id="name" name="name" placeholder="اسمك" />
+        </div>
+        <div class="field-group">
+          <label>رقم الهاتف</label>
+          <input type="tel" id="phone" name="phone" placeholder="01XXXXXXXXX" />
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label>العنوان</label>
+        <input type="text" id="address" name="address" placeholder="المحافظة / المنطقة" />
+      </div>
+
+      <div class="field-group">
+        <label>اختار المنتج</label>
+        <select class="product-select" id="productSelect" name="product" onchange="updatePrice()">
+          <option value="Classic Coffee" data-price="140">Classic Coffee — LE 140</option>
+          <option value="Gold Coffee" data-price="500">Gold Coffee — LE 500</option>
+          <option value="Special Coffee" data-price="550">Special Coffee — LE 550</option>
+        </select>
+      </div>
+      
+      <div class="field-group">
+        <label>الكمية المطلوبة</label>
+        <div class="qty-row">
+          <button type="button" class="qty-btn" onclick="changeQty(-1)">−</button>
+          <span class="qty-display" id="qtyDisplay">1</span>
+          <button type="button" class="qty-btn" onclick="changeQty(1)">+</button>
+          <span style="font-size:0.85rem; color: var(--text-muted); font-weight:300;">× 250g بن وَقَار</span>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label>ملاحظات (اختياري)</label>
+        <textarea id="notes" name="notes" placeholder="أي تفاصيل إضافية..."></textarea>
+      </div>
+
+      <div class="order-summary">
+        <span class="summary-label">إجمالي الطلب</span>
+        <span class="summary-total" id="totalDisplay">—</span>
+      </div>
+
+      <button type="button" class="submit-btn" onclick="submitOrder()">تأكيد الطلب ←</button>
+    </form>
+
+    <div class="success-msg" id="successMsg">
+      <div class="success-icon">✓</div>
+      <h3>تم استلام طلبك!</h3>
+      <p>هنتواصل معاك في أقرب وَقَار لتأكيد التفاصيل والتوصيل.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider-line"></div>
+<section class="whatsapp-section" id="whatsapp">
+  <p>عندك سؤال أو عايز تتواصل معنا مباشرة؟</p>
+  <a class="btn-whatsapp" href="https://wa.me/201005599569" target="_blank">
+    <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+    تواصل معنا على واتساب
+  </a>
+</section>
+
+<footer>
+  © 2025 وَقَار — بن قهوة أصيل
+</footer>
+
+<script>
+  function toggleMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+  function validateForm() {
+  const name    = document.getElementById('name').value.trim();
+  const phone   = document.getElementById('phone').value.trim();
+  const address = document.getElementById('address').value.trim();
+
+  if (!name || !phone || !address) {
+    alert('من فضلك اكتب اسمك ورقم هاتفك وعنوانك.');
+    return false;
+  }
+  return true;
+}
+  
+  let qty = 1;
+  let PRICE = 140;
+
+  function updatePrice() {
+    const select = document.getElementById('productSelect');
+    PRICE = parseInt(select.options[select.selectedIndex].dataset.price);
+    changeQty(0);
+  }
+  function changeQty(delta) {
+  qty = Math.max(1, qty + delta);
+  document.getElementById('qtyDisplay').textContent = qty;
+  document.getElementById('quantityInput').value = qty;
+  document.getElementById('totalDisplay').textContent =
+    (qty * PRICE).toLocaleString('ar-EG') + ' جنيه';
+}
+
+  changeQty(0);
+
+  function submitOrder() {
+  const name    = document.getElementById('name').value.trim();
+  const phone   = document.getElementById('phone').value.trim();
+  const address = document.getElementById('address').value.trim();
+
+  if (!name || !phone || !address) {
+    alert('من فضلك اكتب اسمك ورقم هاتفك وعنوانك.');
+    return;
+  }
+
+  const form = document.getElementById('orderForm');
+  const data = new FormData(form);
+
+  fetch('/', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams(data).toString()
+  }).then(() => {
+    form.style.display = 'none';
+    document.getElementById('successMsg').style.display = 'block';
+  }).catch(() => {
+    alert('في مشكلة في الإرسال، حاول تاني.');
+  });
+}
+</script>
+</body>
+</html>
