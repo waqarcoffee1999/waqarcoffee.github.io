@@ -527,21 +527,34 @@
   }
 
   @media (max-width: 700px) {
-    nav { padding: 1rem 1.5rem; }
-    .nav-links { display: none; }
-    .nav-hamburger { display: flex; }
-    .hero { padding: 6rem 1.5rem 3rem; }
-    .product-section { padding: 4rem 1.5rem; }
-    .products-grid { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
-    .order-section { padding: 4rem 1.5rem; }
-    .form-row { grid-template-columns: 1fr; }
-    .hero-desc { margin-right: 0; }
-
-    /* ← حط هنا */
-    .products-grid .product-card:last-child .product-card-img img {
-  transform: scale(2.2);
-}
+  .product-card-price {
+    display: flex;
+    flex-direction: column; /* زي <br> بالظبط */
+    align-items: center;
+    gap: 2px; /* مسافة خفيفة بينهم */
   }
+
+  .product-card-price span,
+  .product-card-price strong {
+    display: block;
+  }
+}
+
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+  .hero { padding: 6rem 1.5rem 3rem; }
+  .product-section { padding: 4rem 1.5rem; }
+  .products-grid { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+  .order-section { padding: 4rem 1.5rem; }
+  .form-row { grid-template-columns: 1fr; }
+  .hero-desc { margin-right: 0; }
+
+  .products-grid .product-card:last-child .product-card-img img {
+    transform: scale(2.2);
+  }
+
+
 </style>
 </head>
 <body>
@@ -603,7 +616,7 @@
         <img src="Classic.jpg" alt="Coffee">
       </div>
       <p class="product-card-name">Classic Blend<br>250g</p>
-      <p class="product-card-price"><span style="text-decoration:line-through; color:var(--text-muted); font-size:0.85rem;">LE 170.00</span> &nbsp;<strong style="color:var(--black);">LE 150.00</strong></p>
+      <p class="product-card-price"><span style="text-decoration:line-through; color:var(--text-muted); font-size:0.85rem;">LE 170.00</span> ;<strong style="color:var(--black);">LE 150.00</strong></p>
       <a class="btn-primary" href="#order" style="margin-top:1rem; display:inline-block;">اطلب</a>
     </div>
 
@@ -612,7 +625,7 @@
         <img src="Gold.jpg" alt="Coffee">
       </div>
       <p class="product-card-name">Gold Blend<br>250g</p>
-      <p class="product-card-price"><span style="text-decoration:line-through; color:var(--text-muted); font-size:0.85rem;">LE 180.00</span> &nbsp;<strong style="color:var(--black);">LE 160.00</strong></p>
+      <p class="product-card-price"><span style="text-decoration:line-through; color:var(--text-muted); font-size:0.85rem;">LE 180.00</span> ;<strong style="color:var(--black);">LE 160.00</strong></p>
       <a class="btn-primary" href="#order" style="margin-top:1rem; display:inline-block;">اطلب</a>
     </div>
 
@@ -621,7 +634,7 @@
         <img src="Special.jpg" alt="Coffee">
       </div>
       <p class="product-card-name">Special Blend<br>250g</p>
-      <p class="product-card-price"><span style="text-decoration:line-through; color:var(--text-muted); font-size:0.85rem;">LE 190.00</span> &nbsp;<strong style="color:var(--black);">LE 170.00</strong></p>
+      <p class="product-card-price"><span style="text-decoration:line-through; color:var(--text-muted); font-size:0.85rem;">LE 190.00</span> ;<strong style="color:var(--black);">LE 170.00</strong></p>
       <a class="btn-primary" href="#order" style="margin-top:1rem; display:inline-block;">اطلب</a>
     </div>
 
