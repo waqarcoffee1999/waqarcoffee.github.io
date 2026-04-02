@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>وَقَار — بن قهوة</title>
+<title>بن وَقَار</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Cairo:wght@300;400;600&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -30,7 +30,7 @@
   }
 
   .hero h1 {
-    font-family: 'Amiri', serif;  
+     font-family: 'Amiri', serif; 
     
   }
 
@@ -587,7 +587,7 @@
   <div class="hero-content">
  <h1>تجربة قهوة استثنائية<br>تبدأ من هنا</h1>
     <p class="hero-desc">
-      وَقَار - قهوة تٌصنع بٍهدوء ... و تٌشرَب بٍوَقَار
+        قهوة تٌصنع بٍهدوء ... و تٌشرَب بٍوَقَار
     </p>
   </div>
 </section>
@@ -602,8 +602,8 @@
       <div class="product-card-img">
         <img src="Classic.jpg" alt="Coffee">
       </div>
-      <p class="product-card-name">Classic<br>Coffee</p>
-      <p class="product-card-price">LE 140.00</p>
+      <p class="product-card-name">Classic Blend<br>250g</p>
+      <p class="product-card-price"><span style="text-decoration:line-through; color:var(--text-muted); font-size:0.85rem;">LE 170.00</span> &nbsp;<strong style="color:var(--black);">LE 150.00</strong></p>
       <a class="btn-primary" href="#order" style="margin-top:1rem; display:inline-block;">اطلب</a>
     </div>
 
@@ -611,8 +611,8 @@
       <div class="product-card-img">
         <img src="Gold.jpg" alt="Coffee">
       </div>
-      <p class="product-card-name">Gold<br>Coffee</p>
-      <p class="product-card-price">LE 500.00</p>
+      <p class="product-card-name">Gold Blend<br>250g</p>
+      <p class="product-card-price"><span style="text-decoration:line-through; color:var(--text-muted); font-size:0.85rem;">LE 180.00</span> &nbsp;<strong style="color:var(--black);">LE 160.00</strong></p>
       <a class="btn-primary" href="#order" style="margin-top:1rem; display:inline-block;">اطلب</a>
     </div>
 
@@ -620,8 +620,8 @@
       <div class="product-card-img"style="transform: scale(1);">
         <img src="Special.jpg" alt="Coffee">
       </div>
-      <p class="product-card-name">Special<br>Coffee</p>
-      <p class="product-card-price">LE 550.00</p>
+      <p class="product-card-name">Special Blend<br>250g</p>
+      <p class="product-card-price"><span style="text-decoration:line-through; color:var(--text-muted); font-size:0.85rem;">LE 190.00</span> &nbsp;<strong style="color:var(--black);">LE 170.00</strong></p>
       <a class="btn-primary" href="#order" style="margin-top:1rem; display:inline-block;">اطلب</a>
     </div>
 
@@ -660,9 +660,9 @@
       <div class="field-group">
         <label>اختار المنتج</label>
         <select class="product-select" id="productSelect" name="product" onchange="updatePrice()">
-          <option value="Classic Coffee" data-price="140">Classic Coffee — LE 140</option>
-          <option value="Gold Coffee" data-price="500">Gold Coffee — LE 500</option>
-          <option value="Special Coffee" data-price="550">Special Coffee — LE 550</option>
+          <option value="Classic Blend" data-price="150">Classic Blend — LE 150</option>
+          <option value="Gold Blend" data-price="160">Gold Blend — LE 160</option>
+          <option value="Special Blend" data-price="170">Special Blend — LE 170</option>
         </select>
       </div>
 
@@ -727,7 +727,7 @@
   }
 
   let qty = 1;
-  let PRICE = 140;
+  let PRICE = 150;
 
   function updatePrice() {
     const select = document.getElementById('productSelect');
