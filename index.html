@@ -545,14 +545,17 @@
 @media (max-width: 700px) {
   .product-card-price {
     display: flex !important;
-    flex-direction: column !important;
+    flex-direction: row !important;
     align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+    flex-wrap: wrap;
   }
 
   .product-card-price span,
   .product-card-price strong {
-    display: block !important;
-    width: 100%;
+    display: inline !important;
+    width: auto;
     text-align: center;
   }
 }
