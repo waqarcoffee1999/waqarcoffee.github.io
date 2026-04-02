@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>وَقَار — بن قهوة</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Cairo:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Cairo:wght@300;400;600&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -29,7 +29,12 @@
     direction: rtl;
   }
 
- nav {
+  .hero h1 {
+    font-family: 'Amiri', serif;  
+    
+  }
+
+  nav {
     position: fixed;
     top: 0; left: 0; right: 0;
     z-index: 100;
@@ -41,6 +46,23 @@
     backdrop-filter: blur(8px);
     border-bottom: 1px solid var(--border);
   }
+
+  .mobile-social {
+  display: flex;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  border-top: none;
+}
+
+.mobile-social .social-icon {
+  width: 36px;
+  height: 36px;
+}
+
+.mobile-social .social-icon svg {
+  width: 18px;
+  height: 18px;
+}
 
   .nav-logo {
     font-family: 'Playfair Display', serif;
@@ -66,7 +88,6 @@
     text-decoration: none;
   }
   .nav-cta:hover { background: var(--brown); }
-
 
   .nav-links {
     display: flex;
@@ -132,10 +153,9 @@
     color: var(--white);
   }
 
-  .product-card a {
-  margin-top: auto;
-}
+  .product-card a { margin-top: auto; }
 
+  
   .hero {
     min-height: 100vh;
     display: flex;
@@ -145,6 +165,9 @@
     position: relative;
     overflow: hidden;
   }
+
+
+  
 
   .hero-bg {
     position: absolute;
@@ -161,27 +184,14 @@
     z-index: 1;
   }
 
-  .hero-tag {
-    display: inline-block;
-    font-size: 0.75rem;
-    font-weight: 300;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--brown-light);
-    border: 1px solid var(--brown-pale);
-    padding: 0.35rem 0.9rem;
-    border-radius: 2px;
-    margin-bottom: 2rem;
-  }
-
   .hero h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(3.5rem, 8vw, 6rem);
+    font-family: 'Amiri', serif;
+    font-size: clamp(3rem, 7vw, 5rem);
     font-weight: 400;
-    line-height: 1.05;
+    line-height: 1.4;
     color: var(--black);
     margin-bottom: 1.5rem;
-    letter-spacing: -0.03em;
+    letter-spacing: 0em;
   }
 
   .hero h1 em {
@@ -196,6 +206,7 @@
     line-height: 1.8;
     margin-bottom: 2.5rem;
     max-width: 480px;
+    margin-right: 5px;
   }
 
   .hero-actions {
@@ -220,22 +231,6 @@
   }
   .btn-primary:hover { background: var(--brown); }
 
-  .btn-ghost {
-    background: transparent;
-    color: var(--text-muted);
-    border: 1px solid var(--border);
-    padding: 0.9rem 2.2rem;
-    border-radius: 2px;
-    font-family: 'Cairo', sans-serif;
-    font-size: 1rem;
-    font-weight: 300;
-    cursor: pointer;
-    transition: all 0.2s;
-    text-decoration: none;
-    display: inline-block;
-  }
-  .btn-ghost:hover { border-color: var(--brown); color: var(--brown); }
-
   .divider-line {
     height: 1px;
     background: linear-gradient(to left, transparent, var(--border), transparent);
@@ -248,14 +243,6 @@
     margin: 0 auto;
   }
 
-  .product-hero {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
-    margin-bottom: 5rem;
-  }
-
   .products-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -263,56 +250,45 @@
   }
 
   .product-card {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-  min-height: 260px; /* أهم سطر */
-}
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    min-height: 260px;
+  }
 
   .product-card-img {
-  width: 100%;
-  height: 140px; /* ثبّت ارتفاع */
-  overflow: hidden;
-  border-radius: 8px;
-  background: var(--cream);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 1rem;
-
-
-    object-fit: cover;
+    width: 100%;
+    height: 140px;
+    overflow: hidden;
     border-radius: 8px;
     background: var(--cream);
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 1rem;
-    font-size: 3rem;
   }
 
   .product-card-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
 
   .product-card-name {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.2rem;
-  color: var(--black);
-  margin-bottom: 0.4rem;
-  min-height: 3em; /* بدل 2.5 */
-}
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: var(--black);
+    margin-bottom: 0.4rem;
+    min-height: 3em;
+  }
 
   .product-card-price {
     margin-bottom: 0.5rem;
     font-size: 0.95rem;
     color: var(--brown-light);
     font-weight: 300;
-
   }
 
   .product-select {
@@ -331,112 +307,6 @@
     transition: border-color 0.2s;
   }
   .product-select:focus { border-color: var(--brown); }
-
-  .product-visual {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .coffee-circle {
-    width: 320px;
-    height: 320px;
-    border-radius: 50%;
-    background: var(--cream);
-    border: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-  }
-
-  .coffee-inner {
-    width: 220px;
-    height: 220px;
-    border-radius: 50%;
-    background: var(--brown);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: inset 0 8px 20px rgba(0,0,0,0.3);
-  }
-
-  .coffee-icon {
-    font-family: 'Playfair Display', serif;
-    font-size: 4rem;
-    color: var(--cream);
-    opacity: 0.9;
-  }
-
-  .coffee-badge {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    background: var(--black);
-    color: var(--white);
-    padding: 0.5rem 0.9rem;
-    border-radius: 2px;
-    font-size: 0.75rem;
-    font-weight: 400;
-    letter-spacing: 0.1em;
-  }
-
-  .product-info h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.8rem;
-    font-weight: 400;
-    color: var(--black);
-    margin-bottom: 0.5rem;
-    letter-spacing: -0.02em;
-  }
-
-  .product-subtitle {
-    font-size: 0.85rem;
-    color: var(--brown-light);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    margin-bottom: 1.5rem;
-    font-weight: 300;
-  }
-
-  .product-desc {
-    font-size: 1rem;
-    font-weight: 300;
-    color: var(--text-muted);
-    line-height: 1.9;
-    margin-bottom: 2rem;
-  }
-
-  .product-specs {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-    margin-bottom: 2rem;
-  }
-
-  .spec-item {
-    text-align: center;
-    padding: 1rem;
-    border: 1px solid var(--cream);
-    border-radius: 2px;
-    background: var(--cream);
-  }
-
-  .spec-value {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.4rem;
-    color: var(--brown);
-    display: block;
-  }
-
-  .spec-label {
-    font-size: 0.7rem;
-    color: var(--text-muted);
-    font-weight: 300;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
 
   .order-section {
     background: var(--cream);
@@ -614,40 +484,37 @@
     font-weight: 300;
   }
 
-  .whatsapp-section {
-    padding: 4rem 3rem;
+  .social-section {
+    padding: 3rem;
     text-align: center;
     background: var(--white);
+    border-top: 1px solid var(--border);
   }
 
-  .whatsapp-section p {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    font-weight: 300;
-    margin-bottom: 1.2rem;
+  .social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
   }
 
-  .btn-whatsapp {
-    display: inline-flex;
+  .social-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
     align-items: center;
-    gap: 0.6rem;
-    background: #25D366;
-    color: #fff;
-    text-decoration: none;
-    padding: 0.85rem 2rem;
-    border-radius: 2px;
-    font-family: 'Cairo', sans-serif;
-    font-size: 1rem;
-    font-weight: 400;
-    transition: background 0.2s;
+    justify-content: center;
+    transition: transform 0.2s, opacity 0.2s;
+    color: white;
   }
-  .btn-whatsapp:hover { background: #1ebe5d; }
 
-  .btn-whatsapp svg {
-    width: 20px;
-    height: 20px;
-    flex-shrink: 0;
-  }
+  .social-icon:hover { transform: scale(1.15); opacity: 0.85; }
+  .social-icon svg { width: 24px; height: 24px; }
+
+  .whatsapp  { background: #25D366; }
+  .facebook  { background: #1877F2; }
+  .instagram { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
+  .tiktok    { background: #000; }
 
   footer {
     text-align: center;
@@ -665,25 +532,25 @@
     .nav-hamburger { display: flex; }
     .hero { padding: 6rem 1.5rem 3rem; }
     .product-section { padding: 4rem 1.5rem; }
-    .product-hero { grid-template-columns: 1fr; gap: 2rem; }
-    .products-grid { 
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.5rem;
-}
-    .coffee-circle { width: 240px; height: 240px; }
-    .coffee-inner { width: 160px; height: 160px; }
+    .products-grid { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
     .order-section { padding: 4rem 1.5rem; }
     .form-row { grid-template-columns: 1fr; }
+    .hero-desc { margin-right: 0; }
+
+    /* ← حط هنا */
+    .products-grid .product-card:last-child .product-card-img img {
+  transform: scale(2.2);
+}
   }
 </style>
 </head>
 <body>
 
 <nav>
-  <div class="nav-logo">وَقَار-Waqar</div>
+  <div class="nav-logo">وَقَار - WAQAR</div>
   <div class="nav-links">
     <a class="nav-link" href="#product">المنتجات</a>
-    <a class="nav-link" href="#whatsapp">اتصل بنا</a>
+    <a class="nav-link" href="#social">اتصل بنا</a>
     <a class="nav-cta" href="#order">اطلب الآن</a>
   </div>
   <button class="nav-hamburger" onclick="toggleMenu()">
@@ -695,23 +562,33 @@
 
 <div class="nav-mobile-menu" id="mobileMenu">
   <a href="#product" onclick="toggleMenu()">المنتجات</a>
-  <a class="nav-link" href="#whatsapp" style="color: var(--text-muted); text-decoration: none;">اتصل بنا</a>
+  <a class="nav-link" href="#social" style="color: var(--text-muted); text-decoration: none;">اتصل بنا</a>
   <a class="nav-cta" href="#order" onclick="toggleMenu()">اطلب الآن</a>
+ <div class="mobile-social">
+    <a href="https://wa.me/201005599569" target="_blank" class="social-icon whatsapp">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </a>
+    <a href="https://www.facebook.com/profile.php?id=61573481844466" target="_blank" class="social-icon facebook">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+    </a>
+    <a href="https://www.instagram.com/waqar_coffee/" target="_blank" class="social-icon instagram">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+    </a>
+    <a href="https://www.tiktok.com/@waqar_coffee" target="_blank" class="social-icon tiktok">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+    </a>
+  </div>
+</div>
 </div>
 
 <!-- ===== HERO ===== -->
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-content">
-    <div class="hero-tag">بن قهوة مختار</div>
-    <h1>القهوة كما<br>يجب أن <em>تكون</em></h1>
+ <h1>تجربة قهوة استثنائية<br>تبدأ من هنا</h1>
     <p class="hero-desc">
-      وَقَار — بن قهوة عربية أصيلة، محمص بعناية ومختار من أجود المصادر. طعم لا تنساه في كل فنجان.
+      وَقَار - قهوة تٌصنع بٍهدوء ... و تٌشرَب بٍوَقَار
     </p>
-    <div class="hero-actions">
-      <a class="btn-primary" href="#order">اطلب الآن</a>
-      <a class="btn-ghost" href="#product">تعرف على المنتجات</a>
-    </div>
   </div>
 </section>
 
@@ -723,34 +600,37 @@
 
     <div class="product-card">
       <div class="product-card-img">
-  <img src="Classic.jpg" alt="Coffee">
-</div>
-      <p class="product-card-name">Classic<br> Coffee</p>
+        <img src="Classic.jpg" alt="Coffee">
+      </div>
+      <p class="product-card-name">Classic<br>Coffee</p>
       <p class="product-card-price">LE 140.00</p>
       <a class="btn-primary" href="#order" style="margin-top:1rem; display:inline-block;">اطلب</a>
     </div>
 
     <div class="product-card">
       <div class="product-card-img">
-  <img src="Gold.jpg" alt="Coffee">
-</div>
-      <p class="product-card-name">Gold<br> Coffee</p>
+        <img src="Gold.jpg" alt="Coffee">
+      </div>
+      <p class="product-card-name">Gold<br>Coffee</p>
       <p class="product-card-price">LE 500.00</p>
       <a class="btn-primary" href="#order" style="margin-top:1rem; display:inline-block;">اطلب</a>
     </div>
 
     <div class="product-card">
-      <div class="product-card-img">
-  <img src="Special.jpg" alt="Coffee">
-</div>
-      <p class="product-card-name">Special<br> Coffee</p>
+      <div class="product-card-img"style="transform: scale(1);">
+        <img src="Special.jpg" alt="Coffee">
+      </div>
+      <p class="product-card-name">Special<br>Coffee</p>
       <p class="product-card-price">LE 550.00</p>
       <a class="btn-primary" href="#order" style="margin-top:1rem; display:inline-block;">اطلب</a>
     </div>
+
+  </div>
 </section>
 
 <div class="divider-line"></div>
 
+<!-- ===== ORDER ===== -->
 <section class="order-section" id="order">
   <div class="order-inner">
     <div class="order-header">
@@ -758,8 +638,7 @@
       <p>وصول سريع — نتواصل معك لتأكيد الطلب</p>
     </div>
 
-    <form class="order-form" id="orderForm" name="orders" method="POST" data-netlify="true">
-      <input type="hidden" name="form-name" value="orders" />
+    <form class="order-form" id="orderForm">
       <input type="hidden" name="quantity" id="quantityInput" value="1" />
 
       <div class="form-row">
@@ -786,7 +665,7 @@
           <option value="Special Coffee" data-price="550">Special Coffee — LE 550</option>
         </select>
       </div>
-      
+
       <div class="field-group">
         <label>الكمية المطلوبة</label>
         <div class="qty-row">
@@ -819,36 +698,34 @@
 </section>
 
 <div class="divider-line"></div>
-<section class="whatsapp-section" id="whatsapp">
-  <p>عندك سؤال أو عايز تتواصل معنا مباشرة؟</p>
-  <a class="btn-whatsapp" href="https://wa.me/201005599569" target="_blank">
-    <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-    </svg>
-    تواصل معنا على واتساب
-  </a>
+
+<!-- ===== SOCIAL ===== -->
+<section class="social-section" id="social">
+  <div class="social-icons">
+    <a href="https://wa.me/201005599569" target="_blank" class="social-icon whatsapp">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </a>
+    <a href="https://www.facebook.com/profile.php?id=61573481844466" target="_blank" class="social-icon facebook">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+    </a>
+    <a href="https://www.instagram.com/waqar_coffee/" target="_blank" class="social-icon instagram">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+    </a>
+    <a href="https://www.tiktok.com/@waqar_coffee" target="_blank" class="social-icon tiktok">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+    </a>
+  </div>
 </section>
 
 <footer>
-  © 2025 وَقَار — بن قهوة أصيل
+  © 2025 وَقَار - اصل القهوة
 </footer>
 
 <script>
   function toggleMenu() {
-  document.getElementById('mobileMenu').classList.toggle('open');
-}
-  function validateForm() {
-  const name    = document.getElementById('name').value.trim();
-  const phone   = document.getElementById('phone').value.trim();
-  const address = document.getElementById('address').value.trim();
-
-  if (!name || !phone || !address) {
-    alert('من فضلك اكتب اسمك ورقم هاتفك وعنوانك.');
-    return false;
+    document.getElementById('mobileMenu').classList.toggle('open');
   }
-  return true;
-}
-  
+
   let qty = 1;
   let PRICE = 140;
 
@@ -857,41 +734,48 @@
     PRICE = parseInt(select.options[select.selectedIndex].dataset.price);
     changeQty(0);
   }
+
   function changeQty(delta) {
-  qty = Math.max(1, qty + delta);
-  document.getElementById('qtyDisplay').textContent = qty;
-  document.getElementById('quantityInput').value = qty;
-  document.getElementById('totalDisplay').textContent =
-    (qty * PRICE).toLocaleString('ar-EG') + ' جنيه';
-}
+    qty = Math.max(1, qty + delta);
+    document.getElementById('qtyDisplay').textContent = qty;
+    document.getElementById('quantityInput').value = qty;
+    document.getElementById('totalDisplay').textContent =
+      (qty * PRICE).toLocaleString('ar-EG') + ' جنيه';
+  }
 
   changeQty(0);
 
   function submitOrder() {
-  const name    = document.getElementById('name').value.trim();
-  const phone   = document.getElementById('phone').value.trim();
-  const address = document.getElementById('address').value.trim();
+    const name    = document.getElementById('name').value.trim();
+    const phone   = document.getElementById('phone').value.trim();
+    const address = document.getElementById('address').value.trim();
 
-  if (!name || !phone || !address) {
-    alert('من فضلك اكتب اسمك ورقم هاتفك وعنوانك.');
-    return;
+    if (!name || !phone || !address) {
+      alert('من فضلك اكتب اسمك ورقم هاتفك وعنوانك.');
+      return;
+    }
+
+    fetch('https://formspree.io/f/xeepznaa', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name,
+        phone,
+        address,
+        product: document.getElementById('productSelect').value,
+        quantity: qty,
+        notes: document.getElementById('notes').value,
+        total: document.getElementById('totalDisplay').textContent
+      })
+    }).then(res => {
+      if (!res.ok) throw new Error();
+    }).then(() => {
+      document.getElementById('orderForm').style.display = 'none';
+      document.getElementById('successMsg').style.display = 'block';
+    }).catch(() => {
+      alert('في مشكلة في الإرسال، حاول تاني.');
+    });
   }
-
-  const form = document.getElementById('orderForm');
-  const data = new FormData(form);
-
-  fetch('https://formspree.io/f/xeepznaa', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ name, phone, address, product: document.getElementById('productSelect').value, quantity: qty, notes: document.getElementById('notes').value, total: document.getElementById('totalDisplay').textContent })
-  }).then(res => { if (!res.ok) throw new Error(); }).then(() => {
-  }).then(() => {
-    form.style.display = 'none';
-    document.getElementById('successMsg').style.display = 'block';
-  }).catch(() => {
-    alert('في مشكلة في الإرسال، حاول تاني.');
-  });
-}
 </script>
 </body>
 </html>
