@@ -145,12 +145,13 @@
     height: 18px;
   }
 
+  /* ===== HERO ===== */
   .hero {
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 8rem 3rem 4rem;
+    padding: 8rem 2rem 4rem;
     position: relative;
     overflow: hidden;
   }
@@ -163,31 +164,49 @@
       radial-gradient(ellipse 40% 60% at 10% 80%, rgba(92,61,46,0.05) 0%, transparent 60%);
   }
 
-  .hero-content {
-    max-width: 700px;
-    text-align: center;
+  .hero-card {
     position: relative;
     z-index: 1;
+    background: #faf7f3;
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    padding: 3rem 2.5rem 2.5rem;
+    max-width: 420px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 8px 40px rgba(92,61,46,0.08);
   }
 
-  .hero h1 {
+  .hero-logo-wrap {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto 2rem;
+    border: 3px solid var(--brown-pale);
+    background: var(--cream);
+  }
+
+  .hero-logo-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero-card h1 {
     font-family: 'Amiri', serif;
-    font-size: clamp(3rem, 7vw, 5rem);
+    font-size: clamp(2rem, 5vw, 2.8rem);
     font-weight: 400;
-    line-height: 1.4;
+    line-height: 1.5;
     color: var(--black);
-    margin-bottom: 1.5rem;
-    letter-spacing: 0;
+    margin-bottom: 1rem;
   }
 
   .hero-desc {
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 300;
     color: var(--text-muted);
     line-height: 1.8;
-    margin-bottom: 2.5rem;
-    max-width: 480px;
-    margin-right: 5px;
   }
 
   .divider-line {
@@ -345,7 +364,6 @@
     letter-spacing: 0.05em;
   }
 
-  /* input و textarea بدون arrow */
   .field-group input,
   .field-group textarea {
     padding: 0.8rem 1rem;
@@ -362,7 +380,6 @@
     appearance: none;
   }
 
-  /* select فقط بالـ arrow */
   .field-group select {
     padding: 0.8rem 1rem 0.8rem 2.5rem;
     border: 1px solid var(--border);
@@ -522,10 +539,11 @@
     .nav-links { display: none; }
     .nav-hamburger { display: flex; }
     .hero { padding: 6rem 1.5rem 3rem; }
+    .hero-card { padding: 2rem 1.5rem; }
+    .hero-logo-wrap { width: 160px; height: 160px; }
     .product-section { padding: 4rem 1.5rem; }
     .order-section { padding: 4rem 1.5rem; }
     .form-row { grid-template-columns: 1fr; }
-    .hero-desc { margin-right: 0; }
   }
 </style>
 </head>
@@ -566,9 +584,12 @@
 <!-- ===== HERO ===== -->
 <section class="hero">
   <div class="hero-bg"></div>
-  <div class="hero-content">
+  <div class="hero-card">
+    <div class="hero-logo-wrap">
+      <img src="Waqar coffee logo.jpg" alt="Waqar Coffee Logo">
+    </div>
     <h1>تجربة قهوة استثنائية<br>تبدأ من هنا</h1>
-    <p class="hero-desc">وَقَار - قهوة تٌصنع بٍهدوء … و تٌشرَب بٍوَقَار</p>
+    <p class="hero-desc">قهوة تٌصنع بٍهدوء … و تٌشرَب بٍوَقَار</p>
   </div>
 </section>
 
@@ -582,10 +603,17 @@
 
   <p class="product-selector-label">اختار المنتج</p>
   <select class="product-select" id="productSelect" onchange="updateProduct()">
-    <option value="" data-old="" data-new="" disabled selected>اختار منتجك </option>
-    <option value="classic" data-old="150" data-new="170">Classic Blend </option>
-    <option value="gold"    data-old="160" data-new="190">Gold Blend </option>
-    <option value="special" data-old="170" data-new="190">Special Blend </option>
+    <option value="" disabled selected>اختار منتجك</option>
+    <option value="classic">Classic Blend</option>
+    <option value="gold">Gold Blend</option>
+    <option value="special">Special Blend</option>
+  </select>
+
+  <p class="product-selector-label" style="margin-top:0.8rem;">اختار الوزن</p>
+  <select class="product-select" id="weightSelect" onchange="updateProduct()">
+    <option value="" disabled selected>اختار الوزن</option>
+    <option value="125">125g</option>
+    <option value="250">250g</option>
   </select>
 
   <div class="product-price-wrap">
@@ -628,10 +656,19 @@
       <div class="field-group">
         <label>اختار المنتج</label>
         <select id="productSelectForm" name="product" onchange="updatePrice()">
-          <option value="" data-price="" disabled selected>اختار منتجك </option>
-          <option value="Classic Blend 250g" data-price="170">Classic Blend 250g — LE 170</option>
-          <option value="Gold Blend 250g"    data-price="190">Gold Blend 250g — LE 190</option>
-          <option value="Special Blend 250g" data-price="190">Special Blend 250g — LE 190</option>
+          <option value="" disabled selected>اختار منتجك</option>
+          <option value="Classic Blend">Classic Blend</option>
+          <option value="Gold Blend">Gold Blend</option>
+          <option value="Special Blend">Special Blend</option>
+        </select>
+      </div>
+
+      <div class="field-group">
+        <label>اختار الوزن</label>
+        <select id="weightSelectForm" name="weight" onchange="updatePrice()">
+          <option value="" disabled selected>اختار الوزن</option>
+          <option value="125">125g</option>
+          <option value="250">250g</option>
         </select>
       </div>
 
@@ -641,7 +678,7 @@
           <button type="button" class="qty-btn" onclick="changeQty(-1)">−</button>
           <span class="qty-display" id="qtyDisplay">1</span>
           <button type="button" class="qty-btn" onclick="changeQty(1)">+</button>
-          <span style="font-size:0.85rem; color: var(--text-muted); font-weight:300;">× 250g بن وَقَار</span>
+          <span style="font-size:0.85rem; color: var(--text-muted); font-weight:300;">× بن وَقَار</span>
         </div>
       </div>
 
@@ -695,30 +732,53 @@
     document.getElementById('mobileMenu').classList.toggle('open');
   }
 
+  const PRICES = {
+    classic: { '125': [80,  90],  '250': [150, 170] },
+    gold:    { '125': [85,  95],  '250': [160, 190] },
+    special: { '125': [85,  95],  '250': [170, 190] }
+  };
+
   function updateProduct() {
-    const select = document.getElementById('productSelect');
-    const opt = select.options[select.selectedIndex];
-    if (opt.dataset.old) {
-      document.getElementById('priceOld').textContent = 'LE ' + opt.dataset.old + '.00';
-      document.getElementById('priceNew').textContent = 'LE ' + opt.dataset.new + '.00';
+    const product = document.getElementById('productSelect').value;
+    const weight  = document.getElementById('weightSelect').value;
+    if (product && weight) {
+      const [oldP, newP] = PRICES[product][weight];
+      document.getElementById('priceOld').textContent = 'LE ' + oldP + '.00';
+      document.getElementById('priceNew').textContent = 'LE ' + newP + '.00';
+    } else {
+      document.getElementById('priceOld').textContent = '';
+      document.getElementById('priceNew').textContent = '';
     }
   }
 
+  const FORM_PRICES = {
+    'Classic Blend': { '125': 90,  '250': 170 },
+    'Gold Blend':    { '125': 95,  '250': 190 },
+    'Special Blend': { '125': 95,  '250': 190 }
+  };
+
   let qty = 1;
-  let PRICE = 170;
+  let PRICE = 0;
 
   function updatePrice() {
-    const select = document.getElementById('productSelectForm');
-    const price = select.options[select.selectedIndex].dataset.price;
-    if (price) { PRICE = parseInt(price); changeQty(0); }
+    const product = document.getElementById('productSelectForm').value;
+    const weight  = document.getElementById('weightSelectForm').value;
+    if (product && weight) {
+      PRICE = FORM_PRICES[product][weight];
+      changeQty(0);
+    }
   }
 
   function changeQty(delta) {
     qty = Math.max(1, qty + delta);
     document.getElementById('qtyDisplay').textContent = qty;
     document.getElementById('quantityInput').value = qty;
-    document.getElementById('totalDisplay').textContent =
-      (qty * PRICE).toLocaleString('ar-EG') + ' جنيه';
+    if (PRICE > 0) {
+      document.getElementById('totalDisplay').textContent =
+        (qty * PRICE).toLocaleString('ar-EG') + ' جنيه';
+    } else {
+      document.getElementById('totalDisplay').textContent = '—';
+    }
   }
 
   changeQty(0);
@@ -728,9 +788,10 @@
     const phone   = document.getElementById('phone').value.trim();
     const address = document.getElementById('address').value.trim();
     const product = document.getElementById('productSelectForm').value;
+    const weight  = document.getElementById('weightSelectForm').value;
 
-    if (!name || !phone || !address || !product) {
-      alert('من فضلك اكمل كل البيانات واختار المنتج.');
+    if (!name || !phone || !address || !product || !weight) {
+      alert('من فضلك اكمل كل البيانات واختار المنتج والوزن.');
       return;
     }
 
@@ -738,7 +799,8 @@
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        name, phone, address, product,
+        name, phone, address,
+        product: product + ' ' + weight + 'g',
         quantity: qty,
         notes: document.getElementById('notes').value,
         total: document.getElementById('totalDisplay').textContent
