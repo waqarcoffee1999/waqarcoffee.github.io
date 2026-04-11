@@ -190,22 +190,6 @@
     margin-right: 5px;
   }
 
-  .btn-primary {
-    background: var(--black);
-    color: var(--white);
-    border: none;
-    padding: 0.6rem 1rem;
-    border-radius: 2px;
-    font-family: 'Cairo', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 400;
-    cursor: pointer;
-    transition: background 0.2s;
-    text-decoration: none;
-    display: inline-block;
-  }
-  .btn-primary:hover { background: var(--brown); }
-
   .divider-line {
     height: 1px;
     background: linear-gradient(to left, transparent, var(--border), transparent);
@@ -274,6 +258,7 @@
     justify-content: center;
     gap: 1rem;
     margin-bottom: 1.5rem;
+    min-height: 2.5rem;
   }
 
   .price-old {
@@ -339,10 +324,7 @@
     font-size: 1rem;
   }
 
-  .order-form {
-    display: grid;
-    gap: 1.2rem;
-  }
+  .order-form { display: grid; gap: 1.2rem; }
 
   .form-row {
     display: grid;
@@ -363,8 +345,8 @@
     letter-spacing: 0.05em;
   }
 
+  /* input و textarea بدون arrow */
   .field-group input,
-  .field-group select,
   .field-group textarea {
     padding: 0.8rem 1rem;
     border: 1px solid var(--border);
@@ -378,6 +360,26 @@
     outline: none;
     transition: border-color 0.2s;
     appearance: none;
+  }
+
+  /* select فقط بالـ arrow */
+  .field-group select {
+    padding: 0.8rem 1rem 0.8rem 2.5rem;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    background: var(--white);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%235c3d2e' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: left 1rem center;
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.95rem;
+    color: var(--text);
+    font-weight: 300;
+    direction: rtl;
+    outline: none;
+    transition: border-color 0.2s;
+    appearance: none;
+    cursor: pointer;
   }
 
   .field-group input:focus,
@@ -429,11 +431,7 @@
     color: var(--white);
   }
 
-  .summary-label {
-    font-size: 0.85rem;
-    font-weight: 300;
-    opacity: 0.7;
-  }
+  .summary-label { font-size: 0.85rem; font-weight: 300; opacity: 0.7; }
 
   .summary-total {
     font-family: 'Playfair Display', serif;
@@ -584,14 +582,15 @@
 
   <p class="product-selector-label">اختار المنتج</p>
   <select class="product-select" id="productSelect" onchange="updateProduct()">
-    <option value="classic" data-old="150" data-new="170">Classic Blend 250g</option>
-    <option value="gold"    data-old="160" data-new="190">Gold Blend 250g</option>
-    <option value="special" data-old="170" data-new="190">Special Blend 250g</option>
+    <option value="" data-old="" data-new="" disabled selected>اختار منتجك </option>
+    <option value="classic" data-old="150" data-new="170">Classic Blend </option>
+    <option value="gold"    data-old="160" data-new="190">Gold Blend </option>
+    <option value="special" data-old="170" data-new="190">Special Blend </option>
   </select>
 
   <div class="product-price-wrap">
-    <span class="price-old" id="priceOld">LE 150.00</span>
-    <span class="price-new" id="priceNew">LE 170.00</span>
+    <span class="price-old" id="priceOld"></span>
+    <span class="price-new" id="priceNew"></span>
   </div>
 
   <a class="order-btn" href="#order">اطلب الآن</a>
@@ -628,12 +627,13 @@
 
       <div class="field-group">
         <label>اختار المنتج</label>
-        <select class="product-select" id="productSelect" onchange="updateProduct()">
-    <option value="" data-old="" data-new="" disabled selected>اختار منتجك</option>
-    <option value="classic" data-old="150" data-new="170">Classic Blend 250g</option>
-    <option value="gold"    data-old="160" data-new="190">Gold Blend 250g</option>
-    <option value="special" data-old="170" data-new="190">Special Blend 250g</option>
-</select>
+        <select id="productSelectForm" name="product" onchange="updatePrice()">
+          <option value="" data-price="" disabled selected>اختار منتجك </option>
+          <option value="Classic Blend 250g" data-price="170">Classic Blend 250g — LE 170</option>
+          <option value="Gold Blend 250g"    data-price="190">Gold Blend 250g — LE 190</option>
+          <option value="Special Blend 250g" data-price="190">Special Blend 250g — LE 190</option>
+        </select>
+      </div>
 
       <div class="field-group">
         <label>الكمية المطلوبة</label>
@@ -698,8 +698,10 @@
   function updateProduct() {
     const select = document.getElementById('productSelect');
     const opt = select.options[select.selectedIndex];
-    document.getElementById('priceOld').textContent = 'LE ' + opt.dataset.old + '.00';
-    document.getElementById('priceNew').textContent = 'LE ' + opt.dataset.new + '.00';
+    if (opt.dataset.old) {
+      document.getElementById('priceOld').textContent = 'LE ' + opt.dataset.old + '.00';
+      document.getElementById('priceNew').textContent = 'LE ' + opt.dataset.new + '.00';
+    }
   }
 
   let qty = 1;
@@ -707,8 +709,8 @@
 
   function updatePrice() {
     const select = document.getElementById('productSelectForm');
-    PRICE = parseInt(select.options[select.selectedIndex].dataset.price);
-    changeQty(0);
+    const price = select.options[select.selectedIndex].dataset.price;
+    if (price) { PRICE = parseInt(price); changeQty(0); }
   }
 
   function changeQty(delta) {
@@ -725,9 +727,10 @@
     const name    = document.getElementById('name').value.trim();
     const phone   = document.getElementById('phone').value.trim();
     const address = document.getElementById('address').value.trim();
+    const product = document.getElementById('productSelectForm').value;
 
-    if (!name || !phone || !address) {
-      alert('من فضلك اكتب اسمك ورقم هاتفك وعنوانك.');
+    if (!name || !phone || !address || !product) {
+      alert('من فضلك اكمل كل البيانات واختار المنتج.');
       return;
     }
 
@@ -735,10 +738,7 @@
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        name,
-        phone,
-        address,
-        product: document.getElementById('productSelectForm').value,
+        name, phone, address, product,
         quantity: qty,
         notes: document.getElementById('notes').value,
         total: document.getElementById('totalDisplay').textContent
