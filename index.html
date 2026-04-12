@@ -167,7 +167,7 @@
   .hero-card {
     position: relative;
     z-index: 1;
-    background: #faf7f3;
+    background: var(--cream);
     border: 1px solid var(--border);
     border-radius: 28px;
     padding: 3rem 2.5rem 2.5rem;
@@ -733,9 +733,9 @@
   }
 
   const PRICES = {
-    classic: { '125': [80,  90],  '250': [150, 170] },
-    gold:    { '125': [85,  95],  '250': [160, 190] },
-    special: { '125': [85,  95],  '250': [170, 190] }
+    classic: { '125': [90,  80],  '250': [170, 150] },
+    gold:    { '125': [95,  85],  '250': [180, 160] },
+    special: { '125': [100,  90],  '250': [190, 170] }
   };
 
   function updateProduct() {
