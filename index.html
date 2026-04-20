@@ -21,518 +21,247 @@
   }
 
   html { scroll-behavior: smooth; }
-
-  body {
-    font-family: 'Cairo', sans-serif;
-    background: var(--white);
-    color: var(--text);
-    direction: rtl;
-  }
+  body { font-family: 'Cairo', sans-serif; background: var(--white); color: var(--text); direction: rtl; }
 
   nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: flex-start; gap: 20px;; align-items: center;
     padding: 1.2rem 3rem;
-    background: rgba(248,245,240,0.95);
-    backdrop-filter: blur(8px);
+    background: rgba(248,245,240,0.95); backdrop-filter: blur(8px);
     border-bottom: 1px solid var(--border);
   }
-
-  .nav-logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: var(--black);
-    letter-spacing: -0.02em;
-  }
-
-  .nav-cta {
-    background: var(--black);
-    color: var(--white);
-    border: none;
-    padding: 0.6rem 1.4rem;
-    border-radius: 2px;
-    font-family: 'Cairo', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 400;
-    cursor: pointer;
-    transition: background 0.2s;
-    text-decoration: none;
-  }
+  .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; color: var(--black); letter-spacing: -0.02em;   margin-left: auto; }
+  .nav-cta { background: var(--black); color: var(--white); border: none; padding: 0.6rem 1.4rem; border-radius: 2px; font-family: 'Cairo', sans-serif; font-size: 0.9rem; font-weight: 400; cursor: pointer; transition: background 0.2s; text-decoration: none; }
   .nav-cta:hover { background: var(--brown); }
-
-  .nav-links {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-  }
-
-  .nav-link {
-    font-family: 'Cairo', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 400;
-    color: var(--text-muted);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
+  .nav-links { display: flex; align-items: center; gap: 2rem; }
+  .nav-link { font-family: 'Cairo', sans-serif; font-size: 0.9rem; font-weight: 400; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
   .nav-link:hover { color: var(--brown); }
-
-  .nav-hamburger {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    cursor: pointer;
-    background: none;
-    border: none;
-    padding: 4px;
-  }
-
-  .nav-hamburger span {
-    display: block;
-    width: 24px;
-    height: 1.5px;
-    background: var(--black);
-  }
-
-  .nav-mobile-menu {
-    display: none;
-    position: fixed;
-    top: 57px; left: 0; right: 0;
-    background: rgba(248,245,240,0.98);
-    border-bottom: 1px solid var(--border);
-    padding: 1.5rem 2rem;
-    flex-direction: column;
-    gap: 1.2rem;
-    z-index: 99;
-  }
-
+  .nav-right { display: flex; align-items: center; gap: 1rem; }
+  .cart-btn { position: relative; background: none; border: none; cursor: pointer; padding: 4px; color: var(--black); }
+  .cart-btn svg { width: 26px; height: 26px; display: block; }
+  .cart-badge { position: absolute; top: -4px; left: -4px; background: var(--brown); color: white; font-size: 0.65rem; font-family: 'Cairo', sans-serif; width: 18px; height: 18px; border-radius: 50%; display: none; align-items: center; justify-content: center; }
+  .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+  .nav-hamburger span { display: block; width: 24px; height: 1.5px; background: var(--black); }
+  .nav-mobile-menu { display: none; position: fixed; top: 57px; left: 0; right: 0; background: rgba(248,245,240,0.98); border-bottom: 1px solid var(--border); padding: 1.5rem 2rem; flex-direction: column; gap: 1.2rem; z-index: 99; }
   .nav-mobile-menu.open { display: flex; }
+  .nav-mobile-menu a { font-family: 'Cairo', sans-serif; font-size: 1rem; color: var(--text-muted); text-decoration: none; padding: 0.8rem 0; border-bottom: 1px solid var(--border); }
+  .nav-mobile-menu a.nav-cta { border-bottom: none; text-align: center; padding: 0.8rem 1rem; margin-top: 0.5rem; color: var(--white); }
+  .mobile-social { display: flex; gap: 1rem; padding: 0.5rem 0; }
+  .mobile-social .social-icon { width: 36px; height: 36px; }
+  .mobile-social .social-icon svg { width: 18px; height: 18px; }
 
-  .nav-mobile-menu a {
-    font-family: 'Cairo', sans-serif;
-    font-size: 1rem;
-    color: var(--text-muted);
-    text-decoration: none;
-    padding: 0.8rem 0;
-    border-bottom: 1px solid var(--border);
-  }
+  /* CART SIDEBAR */
+  .cart-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 300; }
+  .cart-overlay.open { display: block; }
+  .cart-sidebar { position: fixed; top: 0; left: 0; width: 360px; max-width: 100vw; height: 100vh; background: var(--white); z-index: 301; display: flex; flex-direction: column; transform: translateX(-100%); transition: transform 0.3s ease; box-shadow: 4px 0 20px rgba(0,0,0,0.1); }
+  .cart-sidebar.open { transform: translateX(0); }
+  .cart-header { display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 1.5rem; border-bottom: 1px solid var(--border); }
+  .cart-header h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--black); }
+  .cart-close { background: none; border: none; font-size: 1.4rem; cursor: pointer; color: var(--text-muted); padding: 4px; }
+  .cart-items { flex: 1; overflow-y: auto; padding: 1rem 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
+  .cart-empty { text-align: center; color: var(--text-muted); font-weight: 300; margin-top: 3rem; font-size: 0.95rem; }
+  .cart-item { display: flex; gap: 1rem; align-items: center; padding: 0.8rem; background: var(--cream); border-radius: 8px; }
+  .cart-item-img { width: 60px; height: 60px; border-radius: 6px; overflow: hidden; flex-shrink: 0; background: var(--white); }
+  .cart-item-img img { width: 100%; height: 100%; object-fit: cover; }
+  .cart-item-info { flex: 1; }
+  .cart-item-name { font-family: 'Playfair Display', serif; font-size: 0.9rem; color: var(--black); margin-bottom: 0.2rem; }
+  .cart-item-details { font-size: 0.75rem; color: var(--text-muted); font-weight: 300; margin-bottom: 0.4rem; }
+  .cart-item-price { font-size: 0.85rem; color: var(--brown); font-weight: 600; }
+  .cart-item-controls { display: flex; align-items: center; gap: 0.5rem; flex-shrink: 0; }
+  .cart-qty-btn { width: 28px; height: 28px; border: 1px solid var(--border); background: var(--white); border-radius: 4px; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--brown); transition: all 0.15s; }
+  .cart-qty-btn:hover { background: var(--brown); color: white; border-color: var(--brown); }
+  .cart-item-qty { font-family: 'Playfair Display', serif; font-size: 1rem; min-width: 20px; text-align: center; }
+  .cart-remove { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 1rem; padding: 2px 4px; transition: color 0.15s; }
+  .cart-remove:hover { color: #c0392b; }
+  .cart-footer { padding: 1.2rem 1.5rem; border-top: 1px solid var(--border); }
+  .cart-total-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+  .cart-total-label { font-size: 0.9rem; color: var(--text-muted); font-weight: 300; }
+  .cart-total-price { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--black); }
+  .cart-checkout-btn { width: 100%; padding: 1rem; background: var(--brown); color: var(--white); border: none; border-radius: 6px; font-family: 'Cairo', sans-serif; font-size: 1rem; font-weight: 400; cursor: pointer; transition: background 0.2s; }
+  .cart-checkout-btn:hover { background: var(--black); }
 
-  .nav-mobile-menu a.nav-cta {
-    border-bottom: none;
-    text-align: center;
-    padding: 0.8rem 1rem;
-    margin-top: 0.5rem;
-    color: var(--white);
-  }
+  /* HERO */
+  .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 8rem 2rem 4rem; position: relative; overflow: hidden; }
+  .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 60% 50% at 80% 50%, rgba(92,61,46,0.07) 0%, transparent 70%), radial-gradient(ellipse 40% 60% at 10% 80%, rgba(92,61,46,0.05) 0%, transparent 60%); }
+  .hero-card { position: relative; z-index: 1; background: var(--cream); border: 1px solid var(--border); border-radius: 28px; padding: 3rem 2.5rem 2.5rem; max-width: 420px; width: 100%; text-align: center; box-shadow: 0 8px 40px rgba(92,61,46,0.08); }
+  .hero-logo-wrap { width: 200px; height: 200px; border-radius: 50%; overflow: hidden; margin: 0 auto 2rem; border: 3px solid var(--brown-pale); background: var(--cream); }
+  .hero-logo-wrap img { width: 100%; height: 100%; object-fit: cover; }
+  .hero-card h1 { font-family: 'Amiri', serif; font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 400; line-height: 1.5; color: var(--black); margin-bottom: 1rem; }
+  .hero-desc { font-size: 1rem; font-weight: 300; color: var(--text-muted); line-height: 1.8; }
+  .divider-line { height: 1px; background: linear-gradient(to left, transparent, var(--border), transparent); margin: 0 3rem; }
 
-  .mobile-social {
-    display: flex;
-    gap: 1rem;
-    padding: 0.5rem 0;
-  }
+  /* PRODUCTS */
+  .product-section { padding: 6rem 3rem; }
+  .products-grid { display: grid; grid-template-columns: repeat(3, 280px); gap: 1.5rem; max-width: 1100px; margin: 0 auto; justify-content: center; }
+  .product-card { background: var(--cream); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
+  .product-card-img { width: 100%; aspect-ratio: 3/4; overflow: hidden; background: var(--cream); }
+  .product-card-img img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+  .product-card-body { padding: 1rem; display: flex; flex-direction: column; gap: 0.4rem; }
+  .product-card-name { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--black); font-weight: 400; }
+  .product-card-price { font-size: 0.85rem; color: var(--text-muted); font-weight: 300; }
+  .product-card-price strong { color: var(--brown); font-size: 1rem; }
+  .product-card-btn { margin-top: 0.8rem; padding: 0.7rem 1rem; border: 1px solid var(--black); border-radius: 50px; background: transparent; font-family: 'Cairo', sans-serif; font-size: 0.85rem; color: var(--black); cursor: pointer; text-align: center; transition: all 0.2s; display: block; }
+  .product-card-btn:hover { background: var(--black); color: var(--white); }
 
-  .mobile-social .social-icon {
-    width: 36px;
-    height: 36px;
-  }
+  /* MODAL */
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200; align-items: center; justify-content: center; padding: 1rem; }
+  .modal-overlay.open { display: flex; }
+  .modal { background: var(--white); border-radius: 16px; max-width: 480px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; }
+  .modal-img { width: 100%; aspect-ratio: 1; overflow: hidden; border-radius: 16px 16px 0 0; background: var(--cream); }
+  .modal-img img { width: 100%; height: 100%; object-fit: cover; }
+  .modal-body { padding: 1.5rem; }
+  .modal-close { position: absolute; top: 1rem; left: 1rem; width: 36px; height: 36px; border-radius: 50%; background: rgba(0,0,0,0.5); color: white; border: none; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10; }
+  .modal-name { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--black); margin-bottom: 0.5rem; }
+  .modal-desc { font-size: 0.9rem; color: var(--text-muted); font-weight: 300; line-height: 1.7; margin-bottom: 1.2rem; }
+  .modal-size-label { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.6rem; font-weight: 400; }
+  .modal-sizes { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1.2rem; }
+  .size-btn { padding: 0.5rem 1.1rem; border: 1px solid var(--border); border-radius: 50px; background: transparent; font-family: 'Cairo', sans-serif; font-size: 0.85rem; color: var(--text); cursor: pointer; transition: all 0.15s; }
+  .size-btn.active { background: var(--black); color: var(--white); border-color: var(--black); }
+  .modal-price { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--brown); margin-bottom: 1.2rem; }
+  .modal-qty-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.2rem; }
+  .modal-qty-label { font-size: 0.8rem; color: var(--text-muted); font-weight: 400; }
+  .qty-btn { width: 36px; height: 36px; border: 1px solid var(--border); background: var(--white); border-radius: 2px; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--brown); transition: all 0.15s; }
+  .qty-btn:hover { background: var(--brown); color: var(--white); border-color: var(--brown); }
+  .qty-display { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--black); min-width: 2rem; text-align: center; }
+  .modal-add-btn { width: 100%; padding: 1rem; background: var(--brown); color: var(--white); border: none; border-radius: 8px; font-family: 'Cairo', sans-serif; font-size: 1rem; cursor: pointer; transition: background 0.2s; }
+  .modal-add-btn:hover { background: var(--black); }
 
-  .mobile-social .social-icon svg {
-    width: 18px;
-    height: 18px;
-  }
-
-  /* ===== HERO ===== */
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 8rem 2rem 4rem;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero-bg {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 60% 50% at 80% 50%, rgba(92,61,46,0.07) 0%, transparent 70%),
-      radial-gradient(ellipse 40% 60% at 10% 80%, rgba(92,61,46,0.05) 0%, transparent 60%);
-  }
-
-  .hero-card {
-    position: relative;
-    z-index: 1;
-    background: var(--cream);
-    border: 1px solid var(--border);
-    border-radius: 28px;
-    padding: 3rem 2.5rem 2.5rem;
-    max-width: 420px;
-    width: 100%;
-    text-align: center;
-    box-shadow: 0 8px 40px rgba(92,61,46,0.08);
-  }
-
-  .hero-logo-wrap {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    overflow: hidden;
-    margin: 0 auto 2rem;
-    border: 3px solid var(--brown-pale);
-    background: var(--cream);
-  }
-
-  .hero-logo-wrap img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .hero-card h1 {
-    font-family: 'Amiri', serif;
-    font-size: clamp(2rem, 5vw, 2.8rem);
-    font-weight: 400;
-    line-height: 1.5;
-    color: var(--black);
-    margin-bottom: 1rem;
-  }
-
-  .hero-desc {
-    font-size: 1rem;
-    font-weight: 300;
-    color: var(--text-muted);
-    line-height: 1.8;
-  }
-
-  .divider-line {
-    height: 1px;
-    background: linear-gradient(to left, transparent, var(--border), transparent);
-    margin: 0 3rem;
-  }
-
-  /* ===== PRODUCT SECTION ===== */
-  .product-section {
-    padding: 6rem 3rem;
-    max-width: 600px;
-    margin: 0 auto;
-    text-align: center;
-  }
-
-  .product-img-wrap {
-    width: 100%;
-    max-width: 320px;
-    margin: 0 auto 2rem;
-    border-radius: 16px;
-    overflow: hidden;
-    background: var(--cream);
-    aspect-ratio: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .product-img-wrap img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-  }
-
-  .product-selector-label {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    margin-bottom: 0.5rem;
-    font-weight: 400;
-  }
-
-  .product-select {
-    width: 100%;
-    padding: 0.9rem 1rem 0.9rem 2.5rem;
-    border: 1px solid var(--border);
-    border-radius: 2px;
-    background: var(--white);
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%235c3d2e' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: left 1rem center;
-    font-family: 'Cairo', sans-serif;
-    font-size: 1rem;
-    color: var(--text);
-    font-weight: 400;
-    direction: rtl;
-    outline: none;
-    cursor: pointer;
-    transition: border-color 0.2s;
-    margin-bottom: 1.2rem;
-    appearance: none;
-  }
-  .product-select:focus { border-color: var(--brown); }
-
-  .product-price-wrap {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-    min-height: 2.5rem;
-  }
-
-  .price-old {
-    text-decoration: line-through;
-    color: var(--text-muted);
-    font-size: 1rem;
-    font-weight: 300;
-  }
-
-  .price-new {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.6rem;
-    color: var(--brown);
-    font-weight: 700;
-  }
-
-  .order-btn {
-    width: 100%;
-    padding: 1rem;
-    background: var(--black);
-    color: var(--white);
-    border: none;
-    border-radius: 2px;
-    font-family: 'Cairo', sans-serif;
-    font-size: 1rem;
-    font-weight: 400;
-    cursor: pointer;
-    transition: background 0.2s;
-    text-decoration: none;
-    display: block;
-    text-align: center;
-  }
-  .order-btn:hover { background: var(--brown); }
-
-  /* ===== ORDER SECTION ===== */
-  .order-section {
-    background: var(--cream);
-    padding: 6rem 3rem;
-  }
-
-  .order-inner {
-    max-width: 640px;
-    margin: 0 auto;
-  }
-
-  .order-header {
-    text-align: center;
-    margin-bottom: 3rem;
-  }
-
-  .order-header h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.5rem;
-    font-weight: 400;
-    color: var(--black);
-    margin-bottom: 0.75rem;
-    letter-spacing: -0.02em;
-  }
-
-  .order-header p {
-    color: var(--text-muted);
-    font-weight: 300;
-    font-size: 1rem;
-  }
-
+  /* ORDER */
+  .order-section { background: var(--cream); padding: 6rem 3rem; }
+  .order-inner { max-width: 640px; margin: 0 auto; }
+  .order-header { text-align: center; margin-bottom: 3rem; }
+  .order-header h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 400; color: var(--black); margin-bottom: 0.75rem; letter-spacing: -0.02em; }
+  .order-header p { color: var(--text-muted); font-weight: 300; font-size: 1rem; }
   .order-form { display: grid; gap: 1.2rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .field-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .field-group label { font-size: 0.8rem; font-weight: 400; color: var(--text-muted); letter-spacing: 0.05em; }
+  .field-group input, .field-group textarea { padding: 0.8rem 1rem; border: 1px solid var(--border); border-radius: 2px; background: var(--white); font-family: 'Cairo', sans-serif; font-size: 0.95rem; color: var(--text); font-weight: 300; direction: rtl; outline: none; transition: border-color 0.2s; appearance: none; }
+  .field-group input:focus, .field-group textarea:focus { border-color: var(--brown); }
+  .field-group textarea { resize: vertical; min-height: 80px; }
 
-  .form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
+  .order-cart-summary { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.2rem; }
+  .order-cart-title { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--black); margin-bottom: 0.8rem; }
+  .order-cart-items { display: flex; flex-direction: column; gap: 0.5rem; }
+  .order-cart-item { display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-muted); font-weight: 300; }
+  .order-cart-item span:last-child { color: var(--brown); font-weight: 600; }
+
+  /* ===== PAYMENT ===== */
+  .payment-box {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
   }
 
-  .field-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-  }
-
-  .field-group label {
-    font-size: 0.8rem;
-    font-weight: 400;
+  .payment-box-title {
+    font-size: 0.78rem;
     color: var(--text-muted);
+    font-weight: 400;
+    padding: 0.75rem 1.2rem;
+    border-bottom: 1px solid var(--border);
     letter-spacing: 0.05em;
   }
 
-  .field-group input,
-  .field-group textarea {
-    padding: 0.8rem 1rem;
-    border: 1px solid var(--border);
-    border-radius: 2px;
-    background: var(--white);
-    font-family: 'Cairo', sans-serif;
-    font-size: 0.95rem;
-    color: var(--text);
-    font-weight: 300;
-    direction: rtl;
-    outline: none;
-    transition: border-color 0.2s;
-    appearance: none;
-  }
-
-  .field-group select {
-    padding: 0.8rem 1rem 0.8rem 2.5rem;
-    border: 1px solid var(--border);
-    border-radius: 2px;
-    background: var(--white);
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%235c3d2e' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: left 1rem center;
-    font-family: 'Cairo', sans-serif;
-    font-size: 0.95rem;
-    color: var(--text);
-    font-weight: 300;
-    direction: rtl;
-    outline: none;
-    transition: border-color 0.2s;
-    appearance: none;
-    cursor: pointer;
-  }
-
-  .field-group input:focus,
-  .field-group select:focus,
-  .field-group textarea:focus { border-color: var(--brown); }
-
-  .field-group textarea {
-    resize: vertical;
-    min-height: 80px;
-  }
-
-  .qty-row {
+  .payment-option {
     display: flex;
     align-items: center;
     gap: 1rem;
-  }
-
-  .qty-btn {
-    width: 36px;
-    height: 36px;
-    border: 1px solid var(--border);
-    background: var(--white);
-    border-radius: 2px;
-    font-size: 1.2rem;
+    padding: 1rem 1.2rem;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--brown);
-    transition: all 0.15s;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+    border-right: 3px solid transparent;
   }
-  .qty-btn:hover { background: var(--brown); color: var(--white); border-color: var(--brown); }
 
-  .qty-display {
+  .payment-option:last-child { border-bottom: none; }
+  .payment-option:hover { background: var(--cream); }
+
+  .payment-option.selected {
+    background: rgba(92,61,46,0.05);
+    border-right-color: var(--brown);
+  }
+
+  .pay-radio {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: border-color 0.15s;
+  }
+
+  .payment-option.selected .pay-radio { border-color: var(--brown); }
+
+  .pay-radio-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--brown);
+    display: none;
+  }
+
+  .payment-option.selected .pay-radio-dot { display: block; }
+
+  .pay-info { flex: 1; }
+  .pay-name { font-size: 0.95rem; color: var(--text); font-weight: 400; margin-bottom: 0.1rem; }
+  .pay-desc { font-size: 0.78rem; color: var(--text-muted); font-weight: 300; }
+  .pay-icon { font-size: 1.3rem; flex-shrink: 0; }
+
+  /* Number reveal box */
+  .payment-reveal {
+    display: none;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
+  }
+
+  .payment-reveal.visible { display: block; }
+
+  .payment-reveal-title {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-bottom: 0.4rem;
+    font-weight: 400;
+  }
+
+  .payment-reveal-number {
     font-family: 'Playfair Display', serif;
     font-size: 1.4rem;
-    color: var(--black);
-    min-width: 2rem;
-    text-align: center;
+    color: var(--brown);
+    letter-spacing: 0.04em;
+    margin-bottom: 0.4rem;
   }
 
-  .order-summary {
-    background: var(--black);
-    border-radius: 2px;
-    padding: 1.2rem 1.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: var(--white);
+  .payment-reveal-note {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-weight: 300;
+    line-height: 1.6;
   }
 
+  .order-summary { background: var(--black); border-radius: 2px; padding: 1.2rem 1.5rem; display: flex; justify-content: space-between; align-items: center; color: var(--white); }
   .summary-label { font-size: 0.85rem; font-weight: 300; opacity: 0.7; }
-
-  .summary-total {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.6rem;
-    color: var(--cream);
-  }
-
-  .submit-btn {
-    width: 100%;
-    padding: 1.1rem;
-    background: var(--brown);
-    color: var(--white);
-    border: none;
-    border-radius: 2px;
-    font-family: 'Cairo', sans-serif;
-    font-size: 1rem;
-    font-weight: 400;
-    cursor: pointer;
-    letter-spacing: 0.05em;
-    transition: background 0.2s;
-  }
+  .summary-total { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--cream); }
+  .submit-btn { width: 100%; padding: 1.1rem; background: var(--brown); color: var(--white); border: none; border-radius: 2px; font-family: 'Cairo', sans-serif; font-size: 1rem; font-weight: 400; cursor: pointer; letter-spacing: 0.05em; transition: background 0.2s; }
   .submit-btn:hover { background: var(--black); }
 
-  .success-msg {
-    display: none;
-    text-align: center;
-    padding: 3rem 2rem;
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 2px;
-  }
-
+  .success-msg { display: none; text-align: center; padding: 3rem 2rem; background: var(--white); border: 1px solid var(--border); border-radius: 2px; }
   .success-icon { font-size: 3rem; margin-bottom: 1rem; }
-
-  .success-msg h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.8rem;
-    color: var(--black);
-    margin-bottom: 0.5rem;
-  }
-
+  .success-msg h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--black); margin-bottom: 0.5rem; }
   .success-msg p { color: var(--text-muted); font-weight: 300; }
 
-  .social-section {
-    padding: 3rem;
-    text-align: center;
-    background: var(--white);
-    border-top: 1px solid var(--border);
-  }
-
-  .social-icons {
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-  }
-
-  .social-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.2s, opacity 0.2s;
-    color: white;
-  }
-
+  .social-section { padding: 3rem; text-align: center; background: var(--white); border-top: 1px solid var(--border); }
+  .social-icons { display: flex; justify-content: center; gap: 1.5rem; }
+  .social-icon { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: transform 0.2s, opacity 0.2s; color: white; }
   .social-icon:hover { transform: scale(1.15); opacity: 0.85; }
   .social-icon svg { width: 24px; height: 24px; }
-
   .whatsapp  { background: #25D366; }
   .facebook  { background: #1877F2; }
   .instagram { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
   .tiktok    { background: #000; }
 
-  footer {
-    text-align: center;
-    padding: 2rem;
-    border-top: 1px solid var(--border);
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    font-weight: 300;
-    letter-spacing: 0.1em;
-  }
+  footer { text-align: center; padding: 2rem; border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--text-muted); font-weight: 300; letter-spacing: 0.1em; }
 
   @media (max-width: 700px) {
     nav { padding: 1rem 1.5rem; }
@@ -542,52 +271,77 @@
     .hero-card { padding: 2rem 1.5rem; }
     .hero-logo-wrap { width: 160px; height: 160px; }
     .product-section { padding: 4rem 1.5rem; }
+    .products-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
     .order-section { padding: 4rem 1.5rem; }
     .form-row { grid-template-columns: 1fr; }
+    .cart-sidebar { width: 100vw; }
   }
 </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
   <div class="nav-logo">وَقَار - WAQAR</div>
+  
   <div class="nav-links">
     <a class="nav-link" href="#product">المنتجات</a>
     <a class="nav-link" href="#social">اتصل بنا</a>
-    <a class="nav-cta" href="#order">اطلب الآن</a>
   </div>
-  <button class="nav-hamburger" onclick="toggleMenu()">
-    <span></span><span></span><span></span>
-  </button>
+  
+  <div class="nav-right">
+    <button class="cart-btn" onclick="openCart()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <path d="M16 10a4 4 0 01-8 0"/>
+      </svg>
+      <span class="cart-badge" id="cartBadge">0</span>
+    </button>
+
+    <button class="nav-hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </nav>
 
+<!-- MOBILE MENU -->
 <div class="nav-mobile-menu" id="mobileMenu">
   <a href="#product" onclick="toggleMenu()">المنتجات</a>
   <a class="nav-link" href="#social" style="color: var(--text-muted); text-decoration: none;">اتصل بنا</a>
   <a class="nav-cta" href="#order" onclick="toggleMenu()">اطلب الآن</a>
   <div class="mobile-social">
-    <a href="https://wa.me/201035477377" target="_blank" class="social-icon whatsapp">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-    </a>
-    <a href="https://www.facebook.com/profile.php?id=61575430086624" target="_blank" class="social-icon facebook">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-    </a>
-    <a href="https://www.instagram.com/waqar_coffee/" target="_blank" class="social-icon instagram">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-    </a>
-    <a href="https://www.tiktok.com/@waqar_coffee" target="_blank" class="social-icon tiktok">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
-    </a>
+    <a href="https://wa.me/201035477377" target="_blank" class="social-icon whatsapp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+    <a href="https://www.facebook.com/profile.php?id=61575430086624" target="_blank" class="social-icon facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+    <a href="https://www.instagram.com/waqar_coffee/" target="_blank" class="social-icon instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+    <a href="https://www.tiktok.com/@waqar_coffee" target="_blank" class="social-icon tiktok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a>
   </div>
 </div>
 
-<!-- ===== HERO ===== -->
+<!-- CART SIDEBAR -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-header">
+    <h3>السلة 🛒</h3>
+    <button class="cart-close" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <p class="cart-empty">السلة فارغة</p>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-total-row">
+      <span class="cart-total-label">الإجمالي</span>
+      <span class="cart-total-price" id="cartTotal">LE 0</span>
+    </div>
+    <button class="cart-checkout-btn" onclick="goToCheckout()">متابعة الطلب ←</button>
+  </div>
+</div>
+
+<!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-card">
-    <div class="hero-logo-wrap">
-      <img src="Waqar coffee logo.jpg" alt="Waqar Coffee Logo">
-    </div>
+    <div class="hero-logo-wrap"><img src="Waqar coffee logo.jpg" alt="Waqar Coffee Logo"></div>
     <h1>تجربة قهوة استثنائية<br>تبدأ من هنا</h1>
     <p class="hero-desc">قهوة تٌصنع بٍهدوء … و تٌشرَب بٍوَقَار</p>
   </div>
@@ -595,38 +349,42 @@
 
 <div class="divider-line"></div>
 
-<!-- ===== PRODUCT ===== -->
+<!-- PRODUCTS -->
 <section class="product-section" id="product">
-  <div class="product-img-wrap">
-    <img src="Waqar coffee.jpg" alt="Waqar coffee">
-  </div>
-
-  <p class="product-selector-label">اختار المنتج</p>
-  <select class="product-select" id="productSelect" onchange="updateProduct()">
-    <option value="" disabled selected>اختار منتجك</option>
-    <option value="classic">Classic Blend</option>
-    <option value="gold">Gold Blend</option>
-    <option value="special">Special Blend</option>
-  </select>
-
-  <p class="product-selector-label" style="margin-top:0.8rem;">اختار الوزن</p>
-  <select class="product-select" id="weightSelect" onchange="updateProduct()">
-    <option value="" disabled selected>اختار الوزن</option>
-    <option value="125">125g</option>
-    <option value="250">250g</option>
-  </select>
-
-  <div class="product-price-wrap">
-    <span class="price-old" id="priceOld"></span>
-    <span class="price-new" id="priceNew"></span>
-  </div>
-
-  <a class="order-btn" href="#order">اطلب الآن</a>
+  <div class="products-grid">
+    <div class="product-card"><div class="product-card-img"><img src="Waqar coffee.jpg" alt="Classic Blend"></div><div class="product-card-body"><p class="product-card-name">Classic Blend</p><p class="product-card-price">FROM <strong>LE 80.00</strong></p><button class="product-card-btn" onclick="openModal('classic')">VIEW OPTIONS ›</button></div></div>
+    <div class="product-card"><div class="product-card-img"><img src="Waqar coffee.jpg" alt="Gold Blend"></div><div class="product-card-body"><p class="product-card-name">Gold Blend</p><p class="product-card-price">FROM <strong>LE 85.00</strong></p><button class="product-card-btn" onclick="openModal('gold')">VIEW OPTIONS ›</button></div></div>
+    <div class="product-card"><div class="product-card-img"><img src="Waqar coffee.jpg" alt="Special Blend"></div><div class="product-card-body"><p class="product-card-name">Special Blend</p><p class="product-card-price">FROM <strong>LE 90.00</strong></p><button class="product-card-btn" onclick="openModal('special')">VIEW OPTIONS ›</button></div></div>
+     </div>
 </section>
 
 <div class="divider-line"></div>
 
-<!-- ===== ORDER ===== -->
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal" id="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-img"><img id="modalImg" src="" alt=""></div>
+    <div class="modal-body">
+      <h2 class="modal-name" id="modalName"></h2>
+      <p class="modal-desc" id="modalDesc"></p>
+      <p class="modal-size-label">الوزن</p>
+      <div class="modal-sizes" id="modalSizes"></div>
+      <p class="modal-size-label" style="margin-top:0.8rem;">التحميص</p>
+      <div class="modal-sizes" id="modalRoasts"></div>
+      <p class="modal-price" id="modalPrice">LE —</p>
+      <div class="modal-qty-row">
+        <span class="modal-qty-label">الكمية</span>
+        <button class="qty-btn" onclick="changeModalQty(-1)">−</button>
+        <span class="qty-display" id="modalQty">1</span>
+        <button class="qty-btn" onclick="changeModalQty(1)">+</button>
+      </div>
+      <button class="modal-add-btn" onclick="addToCart()">أضف للسلة 🛒</button>
+    </div>
+  </div>
+</div>
+
+<!-- ORDER -->
 <section class="order-section" id="order">
   <div class="order-inner">
     <div class="order-header">
@@ -635,8 +393,6 @@
     </div>
 
     <form class="order-form" id="orderForm">
-      <input type="hidden" name="quantity" id="quantityInput" value="1" />
-
       <div class="form-row">
         <div class="field-group">
           <label>الاسم</label>
@@ -653,38 +409,57 @@
         <input type="text" id="address" name="address" placeholder="المحافظة / المنطقة" />
       </div>
 
-      <div class="field-group">
-        <label>اختار المنتج</label>
-        <select id="productSelectForm" name="product" onchange="updatePrice()">
-          <option value="" disabled selected>اختار منتجك</option>
-          <option value="Classic Blend">Classic Blend</option>
-          <option value="Gold Blend">Gold Blend</option>
-          <option value="Special Blend">Special Blend</option>
-        </select>
-      </div>
-
-      <div class="field-group">
-        <label>اختار الوزن</label>
-        <select id="weightSelectForm" name="weight" onchange="updatePrice()">
-          <option value="" disabled selected>اختار الوزن</option>
-          <option value="125">125g</option>
-          <option value="250">250g</option>
-        </select>
-      </div>
-
-      <div class="field-group">
-        <label>الكمية المطلوبة</label>
-        <div class="qty-row">
-          <button type="button" class="qty-btn" onclick="changeQty(-1)">−</button>
-          <span class="qty-display" id="qtyDisplay">1</span>
-          <button type="button" class="qty-btn" onclick="changeQty(1)">+</button>
-          <span style="font-size:0.85rem; color: var(--text-muted); font-weight:300;">  </span>
+      <div class="order-cart-summary">
+        <p class="order-cart-title">منتجاتك</p>
+        <div class="order-cart-items" id="orderCartItems">
+          <p style="color:var(--text-muted); font-size:0.85rem; font-weight:300;">السلة فارغة — أضف منتجات من فوق</p>
         </div>
       </div>
 
       <div class="field-group">
         <label>ملاحظات (اختياري)</label>
         <textarea id="notes" name="notes" placeholder="أي تفاصيل إضافية..."></textarea>
+      </div>
+
+      <!-- ===== PAYMENT ===== -->
+      <div class="field-group">
+        <label>طريقة الدفع</label>
+        <div class="payment-box">
+          <p class="payment-box-title">اختار طريقة الدفع</p>
+
+          <div class="payment-option" id="pay-vodafone" onclick="selectPayment('vodafone')">
+            <div class="pay-radio"><div class="pay-radio-dot"></div></div>
+            <div class="pay-info">
+              <p class="pay-name">فودافون كاش</p>
+              <p class="pay-desc">تحويل على رقم الفودافون كاش</p>
+            </div>
+            
+          </div>
+
+          <div class="payment-option" id="pay-instapay" onclick="selectPayment('instapay')">
+            <div class="pay-radio"><div class="pay-radio-dot"></div></div>
+            <div class="pay-info">
+              <p class="pay-name">InstaPay</p>
+              <p class="pay-desc">تحويل عبر تطبيق إنستاباي</p>
+            </div>
+            
+          </div>
+
+          <div class="payment-option" id="pay-cod" onclick="selectPayment('cod')">
+            <div class="pay-radio"><div class="pay-radio-dot"></div></div>
+            <div class="pay-info">
+              <p class="pay-name">الدفع عند الاستلام</p>
+              <p class="pay-desc">كاش عند وصول الطلب</p>
+            </div>
+            
+          </div>
+        </div>
+
+        <div class="payment-reveal" id="paymentReveal">
+          <p class="payment-reveal-title" id="paymentRevealTitle"></p>
+          <p class="payment-reveal-number">01005599569</p>
+          <p class="payment-reveal-note" id="paymentRevealNote"></p>
+        </div>
       </div>
 
       <div class="order-summary">
@@ -705,111 +480,200 @@
 
 <div class="divider-line"></div>
 
-<!-- ===== SOCIAL ===== -->
+<!-- SOCIAL -->
 <section class="social-section" id="social">
   <div class="social-icons">
-    <a href="https://wa.me/201035477377" target="_blank" class="social-icon whatsapp">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-    </a>
-    <a href="https://www.facebook.com/profile.php?id=61575430086624" target="_blank" class="social-icon facebook">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-    </a>
-    <a href="https://www.instagram.com/waqar_coffee/" target="_blank" class="social-icon instagram">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-    </a>
-    <a href="https://www.tiktok.com/@waqar_coffee" target="_blank" class="social-icon tiktok">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
-    </a>
+    <a href="https://wa.me/201035477377" target="_blank" class="social-icon whatsapp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+    <a href="https://www.facebook.com/profile.php?id=61575430086624" target="_blank" class="social-icon facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+    <a href="https://www.instagram.com/waqar_coffee/" target="_blank" class="social-icon instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+    <a href="https://www.tiktok.com/@waqar_coffee" target="_blank" class="social-icon tiktok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a>
   </div>
 </section>
 
-<footer>
-  © 2025 وَقَار - اصل القهوة
-</footer>
+<footer>© 2025 وَقَار - اصل القهوة</footer>
 
 <script>
   function toggleMenu() {
     document.getElementById('mobileMenu').classList.toggle('open');
   }
 
-  const PRICES = {
-    classic: { '125': [90,  80],  '250': [170, 150] },
-    gold:    { '125': [95,  85],  '250': [180, 160] },
-    special: { '125': [100,  90],  '250': [190, 170] }
-  };
+  const PRODUCTS = {
+    classic: { name: 'Classic Blend', img: 'Waqar coffee.jpg', desc: 'قهوة تركي كلاسيك بطعم أصيل وقوام مضبوط، ريحة قوية ونكهة متوازنة تخلي كل فنجان له مزاجه الخاص.', sizes: { '125g': 80, '250g': 150 }, roasts: ['فاتح', 'سادة'] },
+    gold:    { name: 'Gold Blend',    img: 'Waqar coffee.jpg', desc: 'توليفة جولد بنكهة متوازنة ونعومة واضحة … فخامة يومية في كل فنجان.', sizes: { '125g': 85, '250g': 160 }, roasts: ['فاتح', 'سادة'] },
+    special: { name: 'Special Blend', img: 'Waqar coffee.jpg', desc: 'توليفة إسبشيال بطبقات نكهة غنية وتوازن فاخر … تجربة قهوة استثنائية لعشاق التميز.', sizes: { '125g': 90, '250g': 170 }, roasts: ['فاتح', 'سادة'] },
+     };
 
-  function updateProduct() {
-    const product = document.getElementById('productSelect').value;
-    const weight  = document.getElementById('weightSelect').value;
-    if (product && weight) {
-      const [oldP, newP] = PRICES[product][weight];
-      document.getElementById('priceOld').textContent = 'LE ' + oldP + '.00';
-      document.getElementById('priceNew').textContent = 'LE ' + newP + '.00';
+  // ===== PAYMENT =====
+  let selectedPayment = '';
+
+  function selectPayment(method) {
+    selectedPayment = method;
+    document.querySelectorAll('.payment-option').forEach(el => el.classList.remove('selected'));
+    document.getElementById('pay-' + method).classList.add('selected');
+
+    const reveal = document.getElementById('paymentReveal');
+    const title  = document.getElementById('paymentRevealTitle');
+    const note   = document.getElementById('paymentRevealNote');
+
+    if (method === 'vodafone') {
+      reveal.classList.add('visible');
+      title.textContent = 'رقم فودافون كاش';
+      note.textContent = 'حول المبلغ على الرقم ده وابعت صورة الإيصال في خانة الملاحظات.';
+    } else if (method === 'instapay') {
+      reveal.classList.add('visible');
+      title.textContent = 'رقم InstaPay';
+      note.textContent = 'حول المبلغ عبر إنستاباي وابعت صورة الإيصال في خانة الملاحظات.';
     } else {
-      document.getElementById('priceOld').textContent = '';
-      document.getElementById('priceNew').textContent = '';
+      reveal.classList.remove('visible');
     }
   }
 
-  const FORM_PRICES = {
-    'Classic Blend': { '125': 80,  '250': 150 },
-    'Gold Blend':    { '125': 85,  '250': 160 },
-    'Special Blend': { '125': 90,  '250': 170 }
-  };
+  // ===== MODAL =====
+  let modalQty = 1, currentProduct = null, currentSize = null, currentRoast = null;
 
-  let qty = 1;
-  let PRICE = 0;
-
-  function updatePrice() {
-    const product = document.getElementById('productSelectForm').value;
-    const weight  = document.getElementById('weightSelectForm').value;
-    if (product && weight) {
-      PRICE = FORM_PRICES[product][weight];
-      changeQty(0);
-    }
+  function openModal(key) {
+    const p = PRODUCTS[key];
+    currentProduct = key; modalQty = 1;
+    document.getElementById('modalImg').src = p.img;
+    document.getElementById('modalImg').alt = p.name;
+    document.getElementById('modalName').textContent = p.name;
+    document.getElementById('modalDesc').textContent = p.desc;
+    document.getElementById('modalQty').textContent = 1;
+    const sizesEl = document.getElementById('modalSizes');
+    sizesEl.innerHTML = '';
+    const sizeKeys = Object.keys(p.sizes);
+    currentSize = sizeKeys[0];
+    sizeKeys.forEach((s, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'size-btn' + (i === 0 ? ' active' : '');
+      btn.textContent = s;
+      btn.onclick = () => { document.querySelectorAll('#modalSizes .size-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); currentSize = s; updateModalPrice(); };
+      sizesEl.appendChild(btn);
+    });
+    const roastsEl = document.getElementById('modalRoasts');
+    roastsEl.innerHTML = '';
+    currentRoast = p.roasts[0];
+    p.roasts.forEach((r, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'size-btn' + (i === 0 ? ' active' : '');
+      btn.textContent = r;
+      btn.onclick = () => { document.querySelectorAll('#modalRoasts .size-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); currentRoast = r; };
+      roastsEl.appendChild(btn);
+    });
+    updateModalPrice();
+    document.getElementById('modalOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
   }
 
-  function changeQty(delta) {
-    qty = Math.max(1, qty + delta);
-    document.getElementById('qtyDisplay').textContent = qty;
-    document.getElementById('quantityInput').value = qty;
-    if (PRICE > 0) {
-      document.getElementById('totalDisplay').textContent =
-        (qty * PRICE).toLocaleString('ar-EG') + ' جنيه';
-    } else {
-      document.getElementById('totalDisplay').textContent = '—';
-    }
+  function updateModalPrice() {
+    const price = PRODUCTS[currentProduct].sizes[currentSize];
+    document.getElementById('modalPrice').textContent = 'LE ' + (price * modalQty) + '.00 EGP';
   }
 
-  changeQty(0);
+  function changeModalQty(delta) { modalQty = Math.max(1, modalQty + delta); document.getElementById('modalQty').textContent = modalQty; updateModalPrice(); }
+  function closeModal() { document.getElementById('modalOverlay').classList.remove('open'); document.body.style.overflow = ''; }
+  function closeModalOutside(e) { if (e.target === document.getElementById('modalOverlay')) closeModal(); }
+
+  // ===== CART =====
+  let cart = [];
+
+  function addToCart() {
+    const p = PRODUCTS[currentProduct];
+    const price = p.sizes[currentSize];
+    const id = currentProduct + '_' + currentSize + '_' + currentRoast;
+    const existing = cart.find(i => i.id === id);
+    if (existing) { existing.qty += modalQty; } else { cart.push({ id, key: currentProduct, name: p.name, img: p.img, size: currentSize, roast: currentRoast, price, qty: modalQty }); }
+    closeModal(); renderCart(); openCart();
+  }
+
+  function renderCart() {
+    const el = document.getElementById('cartItems');
+    const badge = document.getElementById('cartBadge');
+    if (cart.length === 0) {
+      el.innerHTML = '<p class="cart-empty">السلة فارغة</p>';
+      badge.style.display = 'none';
+      document.getElementById('cartTotal').textContent = 'LE 0';
+      renderOrderSummary(); return;
+    }
+    const totalItems = cart.reduce((s, i) => s + i.qty, 0);
+    badge.textContent = totalItems; badge.style.display = 'flex';
+    el.innerHTML = '';
+    let total = 0;
+    cart.forEach(item => {
+      total += item.price * item.qty;
+      const div = document.createElement('div');
+      div.className = 'cart-item';
+      div.innerHTML = `
+        <div class="cart-item-img"><img src="${item.img}" alt="${item.name}"></div>
+        <div class="cart-item-info">
+          <p class="cart-item-name">${item.name}</p>
+          <p class="cart-item-details">${item.size} · تحميص ${item.roast}</p>
+          <p class="cart-item-price">LE ${item.price * item.qty}</p>
+        </div>
+        <div class="cart-item-controls">
+          <button class="cart-qty-btn" onclick="updateCartQty('${item.id}', -1)">−</button>
+          <span class="cart-item-qty">${item.qty}</span>
+          <button class="cart-qty-btn" onclick="updateCartQty('${item.id}', 1)">+</button>
+          <button class="cart-remove" onclick="removeFromCart('${item.id}')">🗑</button>
+        </div>`;
+      el.appendChild(div);
+    });
+    document.getElementById('cartTotal').textContent = 'LE ' + total;
+    renderOrderSummary();
+  }
+
+  function updateCartQty(id, delta) { const item = cart.find(i => i.id === id); if (!item) return; item.qty = Math.max(1, item.qty + delta); renderCart(); }
+  function removeFromCart(id) { cart = cart.filter(i => i.id !== id); renderCart(); }
+
+  function renderOrderSummary() {
+    const el = document.getElementById('orderCartItems');
+    const totalEl = document.getElementById('totalDisplay');
+    if (cart.length === 0) {
+      el.innerHTML = '<p style="color:var(--text-muted); font-size:0.85rem; font-weight:300;">السلة فارغة — أضف منتجات من فوق</p>';
+      totalEl.textContent = '—'; return;
+    }
+    let total = 0; el.innerHTML = '';
+    cart.forEach(item => {
+      total += item.price * item.qty;
+      const row = document.createElement('div');
+      row.className = 'order-cart-item';
+      row.innerHTML = `<span>${item.name} (${item.size} · ${item.roast}) × ${item.qty}</span><span>LE ${item.price * item.qty}</span>`;
+      el.appendChild(row);
+    });
+    totalEl.textContent = total.toLocaleString('ar-EG') + ' جنيه';
+  }
+
+  function openCart() { document.getElementById('cartOverlay').classList.add('open'); document.getElementById('cartSidebar').classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function closeCart() { document.getElementById('cartOverlay').classList.remove('open'); document.getElementById('cartSidebar').classList.remove('open'); document.body.style.overflow = ''; }
+  function goToCheckout() { closeCart(); document.getElementById('order').scrollIntoView({ behavior: 'smooth' }); }
 
   function submitOrder() {
     const name    = document.getElementById('name').value.trim();
     const phone   = document.getElementById('phone').value.trim();
     const address = document.getElementById('address').value.trim();
-    const product = document.getElementById('productSelectForm').value;
-    const weight  = document.getElementById('weightSelectForm').value;
+    if (!name || !phone || !address) { alert('من فضلك اكتب اسمك ورقم هاتفك وعنوانك.'); return; }
+    if (cart.length === 0) { alert('السلة فارغة — أضف منتجات أول.'); return; }
+    if (!selectedPayment) { alert('من فضلك اختار طريقة الدفع.'); return; }
 
-    if (!name || !phone || !address || !product || !weight) {
-      alert('من فضلك اكمل كل البيانات واختار المنتج والوزن.');
-      return;
-    }
+    const paymentLabels = { vodafone: 'فودافون كاش', instapay: 'InstaPay', cod: 'الدفع عند الاستلام' };
+    const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+    const products = cart.map(i => `${i.name} ${i.size} تحميص ${i.roast} × ${i.qty}`).join(' | ');
 
     fetch('https://formspree.io/f/xeepznaa', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        name, phone, address,
-        product: product + ' ' + weight + 'g',
-        quantity: qty,
-        notes: document.getElementById('notes').value,
-        total: document.getElementById('totalDisplay').textContent
+        name, phone, address, products,
+        payment: paymentLabels[selectedPayment],
+        total: total.toLocaleString('ar-EG') + ' جنيه',
+        notes: document.getElementById('notes').value
       })
     }).then(res => {
       if (!res.ok) throw new Error();
     }).then(() => {
       document.getElementById('orderForm').style.display = 'none';
       document.getElementById('successMsg').style.display = 'block';
+      cart = []; renderCart();
     }).catch(() => {
       alert('في مشكلة في الإرسال، حاول تاني.');
     });
