@@ -263,6 +263,94 @@
 
   footer { text-align: center; padding: 2rem; border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--text-muted); font-weight: 300; letter-spacing: 0.1em; }
 
+/* ===== FIX IMAGES ===== */
+.product-card-img {
+  width: 100%;
+  aspect-ratio: auto;
+  padding: 10px;
+  background: var(--cream);
+}
+
+.product-card-img img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* ===== FIX MODAL IMAGE ===== */
+.modal-img {
+  width: 100%;
+  max-height: 400px;
+  background: var(--cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-img img {
+  width: 100%;
+  height: auto;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* ===== MODAL ANIMATION ===== */
+.modal {
+  transform: translateY(30px) scale(0.95);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.modal-overlay.open .modal {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+/* ===== CART ANIMATION ===== */
+.cart-sidebar {
+  transition: transform 0.35s cubic-bezier(.22,.61,.36,1);
+}
+
+/* ===== MICRO INTERACTIONS ===== */
+button, .product-card, .nav-cta {
+  transition: all 0.25s ease;
+}
+
+button:active {
+  transform: scale(0.96);
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+}
+
+/* زرار أنيميشن */
+.product-card-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.product-card-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--black);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform .3s ease;
+  z-index: -1;
+}
+
+.product-card-btn:hover::after {
+  transform: scaleX(1);
+}
+
+.product-card-btn:hover {
+  color: white;
+}
+
+
   @media (max-width: 700px) {
     nav { padding: 1rem 1.5rem; }
     .nav-links { display: none; }
@@ -587,13 +675,33 @@
   let cart = [];
 
   function addToCart() {
-    const p = PRODUCTS[currentProduct];
-    const price = p.sizes[currentSize];
-    const id = currentProduct + '_' + currentSize + '_' + currentRoast;
-    const existing = cart.find(i => i.id === id);
-    if (existing) { existing.qty += modalQty; } else { cart.push({ id, key: currentProduct, name: p.name, img: p.img, size: currentSize, roast: currentRoast, price, qty: modalQty }); }
-    closeModal(); renderCart(); openCart();
+  const p = PRODUCTS[currentProduct];
+  const price = p.sizes[currentSize];
+  const id = currentProduct + '_' + currentSize + '_' + currentRoast;
+
+  const existing = cart.find(i => i.id === id);
+
+  if (existing) {
+    existing.qty += modalQty;
+  } else {
+    cart.push({
+      id,
+      key: currentProduct,
+      name: p.name,
+      img: p.img,
+      size: currentSize,
+      roast: currentRoast,
+      price,
+      qty: modalQty
+    });
   }
+
+  closeModal();
+  renderCart();
+  openCart();
+
+  showToast('تم إضافة المنتج للسلة 🛒');
+}
 
   function renderCart() {
     const el = document.getElementById('cartItems');
@@ -687,6 +795,23 @@
       alert('في مشكلة في الإرسال، حاول تاني.');
     });
   }
+
+function showToast(msg) {
+  const t = document.createElement('div');
+  t.textContent = msg;
+  t.style.cssText = `
+    position:fixed;bottom:20px;right:20px;
+    background:#0a0a0a;color:white;
+    padding:10px 16px;border-radius:6px;
+    font-size:14px;z-index:9999;
+    opacity:0;transform:translateY(10px);
+    transition:all .3s ease;
+  `;
+  document.body.appendChild(t);
+  setTimeout(()=>{t.style.opacity=1; t.style.transform='translateY(0)'},10);
+  setTimeout(()=>{t.remove()},2500);
+}
+
 </script>
 </body>
 </html>
